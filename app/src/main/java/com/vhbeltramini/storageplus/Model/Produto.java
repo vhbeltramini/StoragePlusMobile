@@ -1,5 +1,7 @@
 package com.vhbeltramini.storageplus.Model;
 
+import java.util.List;
+
 public class Produto {
     private int id;
     private String nome;

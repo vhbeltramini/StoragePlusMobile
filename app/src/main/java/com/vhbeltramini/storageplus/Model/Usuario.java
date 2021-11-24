@@ -1,11 +1,27 @@
 package com.vhbeltramini.storageplus.Model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "tbusuario")
 public abstract class Usuario {
+
+    @ColumnInfo(name = "idusuario")
+    @PrimaryKey(autoGenerate = true)
     protected int id;
+
+    @ColumnInfo(name = "nome")
     protected String nome;
+
+    @ColumnInfo(name = "senha")
     protected String senha;
+
+    @ColumnInfo(name = "email")
     protected String email;
 
+    @Ignore
     public Usuario(String nome, String senha, String email) {
         this.nome = nome;
         this.senha = senha;

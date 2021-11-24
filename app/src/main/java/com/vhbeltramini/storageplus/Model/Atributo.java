@@ -1,6 +1,7 @@
 package com.vhbeltramini.storageplus.Model;
 
 public class Atributo {
+
     private int id;
     private String valor;
     private AtributoDinamico atributoDinamico;
