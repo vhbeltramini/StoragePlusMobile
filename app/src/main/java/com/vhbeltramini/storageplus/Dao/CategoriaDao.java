@@ -22,7 +22,7 @@ public interface CategoriaDao {
     @Delete
     void deleteCategoria(Categoria categoria);
 
-    @Query("UPDATE tbcategoria SET nome=:nome,  senha=:senha, email=:email")
-    void updateCategoria(String nome, String senha, String email);
+    @Query("UPDATE tbcategoria SET nome=:nome,  descricao=:descricao, idestoque=:idEstoque")
+    void updateCategoria(String nome, String descricao, String idEstoque);
 
 }

@@ -1,18 +1,42 @@
 package com.vhbeltramini.storageplus.Model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.util.List;
 
+@Entity(tableName = "tbproduto")
 public class Produto {
+
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "idlocalizacao")
     private int id;
+
+    @ColumnInfo(name = "nome")
     private String nome;
+
+    @ColumnInfo(name = "descricao")
     private String descricao;
+
+    @ColumnInfo(name = "qtdestoque")
     private int qtdEstoque;
+
+    @ColumnInfo(name = "idlocalizacao")
     private Localizacao localizacao;
-    private int imagem;
+
+    @ColumnInfo(name = "urlImage")
+    private String urlImage;
+
+    @ColumnInfo(name = "qtdminestoque")
     private int qtdMinEstoque;
+
     private List<Categoria> categorias;
+
     private List<Atributo> atributos;
 
+    @Ignore
     public Produto(String nome, String descricao, int qtdEstoque, Localizacao localizacao, int qtdMinEstoque) {
         this.nome = nome;
         this.descricao = descricao;
@@ -57,12 +81,12 @@ public class Produto {
         this.localizacao = localizacao;
     }
 
-    public int getImagem() {
-        return imagem;
+    public String getUrlImagem() {
+        return urlImage;
     }
 
-    public void setImagem(int imagem) {
-        this.imagem = imagem;
+    public void setUrlImagem(String UrlImagem) {
+        this.urlImage = UrlImagem;
     }
 
     public int getQtdMinEstoque() {
@@ -89,7 +113,7 @@ public class Produto {
                 ", descricao='" + descricao + '\'' +
                 ", qtdEstoque=" + qtdEstoque +
                 ", localizacao=" + localizacao +
-                ", imagem=" + imagem +
+                ", imagem=" + urlImage +
                 ", qtdMinEstoque=" + qtdMinEstoque +
                 ", categorias=" + categorias +
                 ", atributos=" + atributos +

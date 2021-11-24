@@ -1,11 +1,24 @@
 package com.vhbeltramini.storageplus.Model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "tbatributo")
 public class Atributo {
 
+    @ColumnInfo(name = "idatributodinamico")
+    @PrimaryKey(autoGenerate = true)
     private int id;
+
+    @ColumnInfo(name = "valor")
     private String valor;
+
+    @ColumnInfo(name = "idatributodinamico")
     private AtributoDinamico atributoDinamico;
 
+    @Ignore
     public Atributo(String valor, AtributoDinamico atributoDinamico) {
         this.valor = valor;
         this.atributoDinamico = atributoDinamico;

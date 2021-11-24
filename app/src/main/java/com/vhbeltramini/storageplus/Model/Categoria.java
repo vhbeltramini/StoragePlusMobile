@@ -1,11 +1,27 @@
 package com.vhbeltramini.storageplus.Model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "tbcategoria")
 public class Categoria {
+
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "idcategoria")
     private int id;
+
+    @ColumnInfo(name = "nome")
     private String nome;
+
+    @ColumnInfo(name = "descricao")
     private String descricao;
+
+    @ColumnInfo(name = "idEstoque")
     private Estoque estoque;
 
+    @Ignore
     public Categoria(String nome, String descricao, Estoque estoque) {
         this.nome = nome;
         this.descricao = descricao;
