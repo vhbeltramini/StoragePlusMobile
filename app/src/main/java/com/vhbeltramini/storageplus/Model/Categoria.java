@@ -1,6 +1,7 @@
 package com.vhbeltramini.storageplus.Model;
 
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -9,7 +10,7 @@ import androidx.room.PrimaryKey;
 public class Categoria {
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "idcategoria")
+    @ColumnInfo(name = "id")
     private int id;
 
     @ColumnInfo(name = "nome")
@@ -18,14 +19,17 @@ public class Categoria {
     @ColumnInfo(name = "descricao")
     private String descricao;
 
-    @ColumnInfo(name = "idEstoque")
+    @Embedded(prefix = "tbestoque")
     private Estoque estoque;
 
-    @Ignore
     public Categoria(String nome, String descricao, Estoque estoque) {
         this.nome = nome;
         this.descricao = descricao;
         this.estoque = estoque;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {

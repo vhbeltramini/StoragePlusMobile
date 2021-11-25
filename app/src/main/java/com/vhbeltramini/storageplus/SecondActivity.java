@@ -1,6 +1,9 @@
 package com.vhbeltramini.storageplus;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +22,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import java.io.InputStream;
 
 public class SecondActivity extends AppCompatActivity {
 
@@ -65,7 +70,12 @@ public class SecondActivity extends AppCompatActivity {
 
             id.setText(personId);
             name.setText(personName);
-            Glide.with(this).load(String.valueOf(personPhoto)).into(profileImage);
+//            Glide.with(this).load(String.valueOf(personPhoto)).centerCrop().into(profileImage);
+            LoadImage loadImage = new LoadImage(profileImage);
+            loadImage.execute(String.valueOf(personPhoto));
+
+            new LoadImage((ImageView)
+            findViewById(R.id.profileImage)).execute(String.valueOf(personPhoto));
         }
 
     }
@@ -79,6 +89,32 @@ public class SecondActivity extends AppCompatActivity {
                         finish();
                     }
                 });
+    }
+
+    private class LoadImage extends AsyncTask<String, Void, Bitmap> {
+        ImageView imageView;
+
+        public LoadImage(ImageView image) {
+            this.imageView = image;
+        }
+
+        @Override
+        protected Bitmap doInBackground(String... strings) {
+            String urlLink = strings[0];
+            Bitmap bitmap = null;
+            try {
+                InputStream inStream = new java.net.URL(urlLink).openStream();
+                bitmap = BitmapFactory.decodeStream(inStream);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return bitmap;
+        }
+
+        protected void onPostExecute(Bitmap bitmap) {
+            imageView.setImageBitmap(bitmap);
+        }
+
     }
 
 }

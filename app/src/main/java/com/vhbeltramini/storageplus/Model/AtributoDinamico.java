@@ -1,6 +1,7 @@
 package com.vhbeltramini.storageplus.Model;
 
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -8,7 +9,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "tbatributodinamico")
 public class AtributoDinamico {
 
-    @ColumnInfo(name = "idatributodinamico")
+    @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
     private int id;
 
@@ -18,14 +19,21 @@ public class AtributoDinamico {
     @ColumnInfo(name = "descricao")
     private String descricao;
 
-    @ColumnInfo(name = "idcategoria")
+    @Embedded(prefix = "tbcategoria")
     private Categoria categoria;
 
-    @Ignore
     public AtributoDinamico(String nome, String descricao, Categoria categoria) {
         this.nome = nome;
         this.descricao = descricao;
         this.categoria = categoria;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getNome() {

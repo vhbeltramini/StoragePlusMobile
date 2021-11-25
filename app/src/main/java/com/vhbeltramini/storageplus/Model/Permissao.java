@@ -2,14 +2,13 @@ package com.vhbeltramini.storageplus.Model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "tbpermissao")
 public class Permissao {
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "idlocalizacao")
+    @ColumnInfo(name = "id")
     private int id;
 
     @ColumnInfo(name = "nome")
@@ -18,10 +17,13 @@ public class Permissao {
     @ColumnInfo(name = "descricao")
     private String descricao;
 
-    @Ignore
     public Permissao(String nome, String descricao) {
         this.nome = nome;
         this.descricao = descricao;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {

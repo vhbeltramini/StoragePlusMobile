@@ -1,6 +1,7 @@
 package com.vhbeltramini.storageplus.Model;
 
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -9,7 +10,7 @@ import androidx.room.PrimaryKey;
 public class Estoque {
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "idestoque")
+    @ColumnInfo(name = "id")
     private int id;
 
     @ColumnInfo(name = "nome")
@@ -18,18 +19,21 @@ public class Estoque {
     @ColumnInfo(name = "descricao")
     private String descricao;
 
-    @ColumnInfo(name = "idlocalizacao")
+    @Embedded(prefix = "tblocalizacao")
     private Localizacao localizacao;
 
-    @ColumnInfo(name = "idadministrador")
+    @Embedded(prefix = "tbadministrador")
     private Administrador administrador;
 
-    @Ignore
     public Estoque(String nome, String descricao, Localizacao localizacao, Administrador administrador) {
         this.nome = nome;
         this.descricao = descricao;
         this.localizacao = localizacao;
         this.administrador = administrador;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {

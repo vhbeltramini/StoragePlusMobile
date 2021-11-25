@@ -22,7 +22,7 @@ public interface FuncionarioDao {
     @Delete
     void deleteFuncionario(Funcionario funcionario);
 
-    @Query("UPDATE tbfuncionario SET nome=:nome,  senha=:senha, email=:email, idestoque=:idEstoque")
+    @Query("UPDATE tbfuncionario SET nome=:nome,  senha=:senha, email=:email, tbestoqueid=:idEstoque")
     void updateAdministrador(String nome, String senha, String email, int idEstoque);
 
 }

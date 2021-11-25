@@ -22,7 +22,7 @@ public interface EstoqueDao {
     @Delete
     void deleteEstoque(Estoque estoque);
 
-    @Query("UPDATE tbestoque SET nome=:nome,  descricao=:descricao, idlocalizacao=:idLocalizacao, idadministrador=:idAdministrador")
+    @Query("UPDATE tbestoque SET nome=:nome,  descricao=:descricao, tblocalizacaoid=:idLocalizacao, tbadministradorid=:idAdministrador")
     void updateEstoque(String nome, String descricao, int idLocalizacao, int idAdministrador);
 
 }

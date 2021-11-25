@@ -1,19 +1,23 @@
 package com.vhbeltramini.storageplus.Model;
 
-import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.Relation;
 
 import java.util.List;
 
 @Entity(tableName = "tbfuncionario")
 public class Funcionario extends Usuario {
 
-    @ColumnInfo(name = "idestoque")
+    @Embedded(prefix = "tbestoque")
     private Estoque estoque;
-    private List<Permissao> permissoes;
 
-    @Ignore
+    @Embedded(prefix = "tbpermissao")
+    public Permissao permissao;
+  //  @Relation(parentColumn = "tbpermissaoid", entityColumn = "id", entity = Permissao.class)
+  //  private List<Permissao> permissoes;
+
     public Funcionario(Estoque estoque, String nome, String senha, String email) {
         super(nome, senha, email);
         this.estoque = estoque;
@@ -23,7 +27,23 @@ public class Funcionario extends Usuario {
         return estoque;
     }
 
-    public List<Permissao> getPermissoes() {
-        return permissoes;
+//    public List<Permissao> getPermissoes() {
+//        return permissoes;
+//    }
+
+    public void setEstoque(Estoque estoque) {
+        this.estoque = estoque;
     }
+
+    public Permissao getPermissao() {
+        return permissao;
+    }
+
+    public void setPermissao(Permissao permissao) {
+        this.permissao = permissao;
+    }
+
+//    public void setPermissoes(List<Permissao> permissoes) {
+//        this.permissoes = permissoes;
+//    }
 }

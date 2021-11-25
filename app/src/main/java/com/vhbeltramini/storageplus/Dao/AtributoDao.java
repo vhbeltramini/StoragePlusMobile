@@ -22,7 +22,7 @@ public interface AtributoDao {
     @Delete
     void deleteAtributo(Atributo atributo);
 
-    @Query("UPDATE tbatributo SET valor=:valor,  idatributodinamico=:idAtributoDinamico")
+    @Query("UPDATE tbatributo SET valor=:valor,  tbatributoDinamicoid=:idAtributoDinamico")
     void updateAtributo(String valor, int idAtributoDinamico);
 
 }

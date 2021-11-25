@@ -1,6 +1,7 @@
 package com.vhbeltramini.storageplus.Model;
 
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -11,7 +12,7 @@ import java.util.List;
 public class Produto {
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "idlocalizacao")
+    @ColumnInfo(name = "idproduto")
     private int id;
 
     @ColumnInfo(name = "nome")
@@ -23,7 +24,7 @@ public class Produto {
     @ColumnInfo(name = "qtdestoque")
     private int qtdEstoque;
 
-    @ColumnInfo(name = "idlocalizacao")
+    @Embedded(prefix = "tblocalizacao")
     private Localizacao localizacao;
 
     @ColumnInfo(name = "urlImage")
