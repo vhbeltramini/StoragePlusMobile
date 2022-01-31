@@ -27,14 +27,20 @@ public class UsuarioRepository {
     }
 
     public void insert(Usuario entity) {
-        LocalizacaoDatabase.databaseWriteExecutor.execute(() -> {
+        UsuarioDatabase.databaseWriteExecutor.execute(() -> {
             dao.insert(entity);
         });
     }
 
     public void delete(Usuario entity) {
-        LocalizacaoDatabase.databaseWriteExecutor.execute(() -> {
+        UsuarioDatabase.databaseWriteExecutor.execute(() -> {
             dao.delete(entity);
+        });
+    }
+
+    public void edit(Usuario entity) {
+        UsuarioDatabase.databaseWriteExecutor.execute(() -> {
+            dao.update(entity);
         });
     }
 

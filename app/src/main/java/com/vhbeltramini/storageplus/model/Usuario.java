@@ -26,6 +26,9 @@ public class Usuario {
         this.email = email;
     }
 
+    public Usuario() {
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -66,5 +69,9 @@ public class Usuario {
                 ", senha='" + senha + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    public boolean hasValidId() {
+        return id > 0;
     }
 }

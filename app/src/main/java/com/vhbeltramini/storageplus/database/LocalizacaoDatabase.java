@@ -35,21 +35,4 @@ public abstract class LocalizacaoDatabase extends RoomDatabase{
         return INSTANCE;
     }
 
-    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
-        @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
-
-            databaseWriteExecutor.execute(() -> {
-                LocalizacaoDao dao = INSTANCE.localizacaoDao();
-                dao.deleteAll();
-
-                Localizacao localizacao = new Localizacao("Localização A", "Rua Teste A, 101");
-                dao.insert(localizacao);
-                localizacao = new Localizacao("Localização B", "Rua Teste B, 101");
-                dao.insert(localizacao);
-            });
-        }
-    };
-
 }

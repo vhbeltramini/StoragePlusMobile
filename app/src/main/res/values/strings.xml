@@ -19,5 +19,8 @@
     <string name="company">Empresa</string>
     <string name="save">Salvar</string>
     <string name="description">Descrição</string>
+    <string name="email">E-Mail</string>
+    <string name="password">Senha</string>
+    <string name="confirme_password">Confirmar senha</string>
     <string name="name">Nome</string>
 </resources>

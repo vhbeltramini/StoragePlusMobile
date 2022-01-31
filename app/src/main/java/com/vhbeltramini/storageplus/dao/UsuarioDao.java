@@ -6,6 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.vhbeltramini.storageplus.model.Usuario;
 
@@ -23,8 +24,8 @@ public interface UsuarioDao {
     @Delete
     void delete(Usuario usuario);
 
-    @Query("UPDATE tbusuario SET nome=:nome,  senha=:senha, email=:email")
-    void update(String nome, String senha, String email);
+    @Update
+    void update(Usuario usuario);
 
     @Query("DELETE FROM tbusuario")
     void deleteAll();

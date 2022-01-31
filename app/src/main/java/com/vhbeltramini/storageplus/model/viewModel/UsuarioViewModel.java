@@ -35,4 +35,9 @@ public class UsuarioViewModel extends AndroidViewModel {
         mRepository.delete(entity);
     }
 
+    public void edit(Usuario entity) {
+        mRepository.edit(entity);
+    }
+
+
 }
