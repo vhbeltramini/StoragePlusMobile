@@ -1,4 +1,4 @@
-package com.vhbeltramini.storageplus.ui.activity;
+package com.vhbeltramini.storageplus.ui.activity.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.vhbeltramini.storageplus.R;
 import com.vhbeltramini.storageplus.model.Estoque;
 import com.vhbeltramini.storageplus.model.viewModel.EstoqueViewModel;
+import com.vhbeltramini.storageplus.ui.activity.DataConstants;
 import com.vhbeltramini.storageplus.ui.adapter.ListEstoquesesAdapter;
 
 public class ListStoragesActivity extends AppCompatActivity {

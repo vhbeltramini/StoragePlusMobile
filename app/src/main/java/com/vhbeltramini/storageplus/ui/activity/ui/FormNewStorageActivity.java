@@ -1,4 +1,4 @@
-package com.vhbeltramini.storageplus.ui.activity;
+package com.vhbeltramini.storageplus.ui.activity.ui;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.vhbeltramini.storageplus.ui.activity;
+package com.vhbeltramini.storageplus.ui.activity.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 

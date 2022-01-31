@@ -1,4 +1,4 @@
-package com.vhbeltramini.storageplus.ui.activity;
+package com.vhbeltramini.storageplus.ui.activity.ui;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

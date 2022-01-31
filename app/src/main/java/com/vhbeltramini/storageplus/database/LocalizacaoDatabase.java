@@ -1,29 +1,55 @@
-//package com.vhbeltramini.storageplus.database;
-//
-//
-//import android.content.Context;
-//
-//import androidx.room.Database;
-//import androidx.room.Room;
-//import androidx.room.RoomDatabase;
-//
-//import com.vhbeltramini.storageplus.dao.LocalizacaoDao;
-//import com.vhbeltramini.storageplus.model.Localizacao;
-//
-//@Database(entities = {Localizacao.class}, exportSchema = false, version = 1)
-//public abstract class LocalizacaoDatabase extends RoomDatabase{
-//
-//    private static final String DB_NAME = "dbstorageplus";
-//    private static LocalizacaoDatabase instance;
-//
-//    public static synchronized LocalizacaoDatabase getInstance(Context context) {
-//        if (instance == null) {
-//            instance = Room.databaseBuilder(context.getApplicationContext(), LocalizacaoDatabase.class, DB_NAME)
-//                    .allowMainThreadQueries().fallbackToDestructiveMigration().build();
-//        }
-//        return instance;
-//    }
-//
-//    public abstract LocalizacaoDao localizacaoDao();
-//
-//}
+package com.vhbeltramini.storageplus.database;
+
+
+import android.content.Context;
+
+import androidx.annotation.NonNull;
+import androidx.room.Database;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+
+import com.vhbeltramini.storageplus.dao.EstoqueDao;
+import com.vhbeltramini.storageplus.dao.LocalizacaoDao;
+import com.vhbeltramini.storageplus.model.Estoque;
+import com.vhbeltramini.storageplus.model.Localizacao;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+@Database(entities = {Localizacao.class}, exportSchema = false, version = 1)
+public abstract class LocalizacaoDatabase extends RoomDatabase{
+
+    public abstract LocalizacaoDao localizacaoDao();
+    private static final String DB_NAME = "dbstorageplus";
+    private static LocalizacaoDatabase INSTANCE;
+
+    private static final int NUMBER_OF_THREADS = 4;
+    public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+
+    public static synchronized LocalizacaoDatabase getInstance(Context context) {
+        if (INSTANCE == null) {
+            INSTANCE = Room.databaseBuilder(context.getApplicationContext(), LocalizacaoDatabase.class, DB_NAME)
+                    .allowMainThreadQueries().fallbackToDestructiveMigration().build();
+        }
+        return INSTANCE;
+    }
+
+    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+
+            databaseWriteExecutor.execute(() -> {
+                LocalizacaoDao dao = INSTANCE.localizacaoDao();
+                dao.deleteAll();
+
+                Localizacao localizacao = new Localizacao("Localização A", "Rua Teste A, 101");
+                dao.insert(localizacao);
+                localizacao = new Localizacao("Localização B", "Rua Teste B, 101");
+                dao.insert(localizacao);
+            });
+        }
+    };
+
+}

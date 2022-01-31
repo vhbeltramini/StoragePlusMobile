@@ -19,12 +19,12 @@ public class Estoque implements Serializable {
 
     @ColumnInfo(name = "descricao")
     private String descricao;
-//
-//    @Embedded(prefix = "tblocalizacao")
-//    private Localizacao localizacao;
-//
-//    @Embedded(prefix = "tbadministrador")
-//    private Administrador administrador;
+
+    @Embedded(prefix = "tblocalizacao")
+    private Localizacao localizacao;
+
+    @Embedded(prefix = "tbadministrador")
+    private Administrador administrador;
 
     public Estoque(String nome, String descricao) {
         this.nome = nome;
@@ -55,21 +55,21 @@ public class Estoque implements Serializable {
         this.descricao = descricao;
     }
 
-//    public Localizacao getLocalizacao() {
-//        return localizacao;
-//    }
-//
-//    public void setLocalizacao(Localizacao localizacao) {
-//        this.localizacao = localizacao;
-//    }
-//
-//    public Administrador getAdministrador() {
-//        return administrador;
-//    }
-//
-//    public void setAdministrador(Administrador administrador) {
-//        this.administrador = administrador;
-//    }
+    public Localizacao getLocalizacao() {
+        return localizacao;
+    }
+
+    public void setLocalizacao(Localizacao localizacao) {
+        this.localizacao = localizacao;
+    }
+
+    public Administrador getAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(Administrador administrador) {
+        this.administrador = administrador;
+    }
 
     @java.lang.Override
     public java.lang.String toString() {
@@ -77,8 +77,8 @@ public class Estoque implements Serializable {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", descricao='" + descricao + '\'' +
-//                ", localizacao=" + localizacao +
-//                ", administrador=" + administrador +
+                ", localizacao=" + localizacao +
+                ", administrador=" + administrador +
                 '}';
     }
 

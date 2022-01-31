@@ -15,7 +15,7 @@ import java.util.List;
 public interface EstoqueDao {
 
     @Query("SELECT * FROM tbestoque")
-    LiveData<List<Estoque>> getEstoques();
+    LiveData<List<Estoque>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Estoque estoque);

@@ -18,7 +18,7 @@ public class EstoqueRepository {
     public EstoqueRepository(Application application) {
         EstoqueDatabase db = EstoqueDatabase.getInstance(application);
         estoqueDao = db.estoqueDao();
-        mAllEstoques = estoqueDao.getEstoques();
+        mAllEstoques = estoqueDao.getAll();
     }
 
     public LiveData<List<Estoque>> getAll() {
