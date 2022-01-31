@@ -6,6 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.vhbeltramini.storageplus.model.Localizacao;
 
@@ -23,8 +24,8 @@ public interface LocalizacaoDao {
     @Delete
     void delete(Localizacao localizacao);
 
-    @Query("UPDATE tblocalizacao SET nome=:nome,  descricao=:descricao")
-    void update(String nome, String descricao);
+    @Update
+    void update(Localizacao localizacao);
 
     @Query("DELETE FROM tblocalizacao")
     void deleteAll();

@@ -23,6 +23,9 @@ public class Localizacao {
         this.descricao = descricao;
     }
 
+    public Localizacao() {
+    }
+
     public int getId() {
         return id;
     }
@@ -45,5 +48,9 @@ public class Localizacao {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public boolean hasValidId() {
+        return id > 0;
     }
 }

@@ -37,4 +37,12 @@ public class LocalizacaoRepository {
         });
     }
 
+    public void edit(Localizacao entity) {
+        LocalizacaoDatabase.databaseWriteExecutor.execute(() -> {
+            dao.update(entity);
+        });
+    }
+
+
+
 }

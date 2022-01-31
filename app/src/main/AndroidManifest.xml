@@ -39,6 +39,10 @@
             android:name=".ui.activity.ui.FormNewStorageActivity"
             android:exported="true" />
         <activity
+            android:name=".ui.activity.ui.FormNewLocationActivity"
+            android:label="Localização"
+            android:exported="true" />
+        <activity
             android:name=".ui.activity.ui.StartLogInPageActivity"
             android:exported="true" />
     </application>
