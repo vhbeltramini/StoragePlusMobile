@@ -2,9 +2,9 @@ package com.vhbeltramini.storageplus.ui.activity.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -20,16 +20,19 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.vhbeltramini.storageplus.R;
 import com.vhbeltramini.storageplus.model.Usuario;
 import com.vhbeltramini.storageplus.model.viewModel.UsuarioViewModel;
-import com.vhbeltramini.storageplus.ui.activity.DataConstants;
 import com.vhbeltramini.storageplus.ui.adapter.ListUsuarioAdapter;
+import com.vhbeltramini.storageplus.ui.adapter.holders.UsuarioHolderView;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.ArrayList;
 
-public class UsersFragment extends Fragment implements ListUsuarioAdapter.onUserListener {
+import static com.vhbeltramini.storageplus.ui.activity.DataConstants.USUARIO_KEY;
+
+public class UsersFragment extends Fragment implements UsuarioHolderView.OnUserListener {
 
 
     RecyclerView mRecyclerView;
-    List<Usuario> usuarios;
+    ArrayList<Usuario> usuarios;
     ListUsuarioAdapter mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
 
@@ -43,31 +46,23 @@ public class UsersFragment extends Fragment implements ListUsuarioAdapter.onUser
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        mAdapter = new ListUsuarioAdapter(new ListUsuarioAdapter.UsuarioDiff());
+        mAdapter = new ListUsuarioAdapter(new ListUsuarioAdapter.UsuarioDiff(), this);
         mRecyclerView.setAdapter(mAdapter);
         UsuarioViewModel viewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
 
         viewModel.getAll().observe(requireActivity(), entities -> {
 
-            usuarios = entities;
+            usuarios = (ArrayList<Usuario>) entities;
             mAdapter.submitList(entities);
 
             Log.e("Users: ", entities.toString());
         });
-
-        handleListClicks(mRecyclerView);
 
         openFormAddNew(rootView);
 
         return rootView;
     }
 
-    private void handleListClicks(RecyclerView mRecyclerView) {
-
-
-//        mRecyclerView.addOnItemTouchListener(RecyclerView.);
-
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -80,11 +75,9 @@ public class UsersFragment extends Fragment implements ListUsuarioAdapter.onUser
     }
 
     @Override
-    public void onNoteClick(int position) {
-
+    public void onUserClick(int position) {
         Intent goToUserForm = new Intent(getActivity(), FormNewUserActivity.class);
-//        goToUserForm.putExtra(DataConstants.USUARIO_KEY, aluno);
+        goToUserForm.putExtra(USUARIO_KEY, (Serializable) usuarios.get(position));
         startActivity(goToUserForm);
-        new Intent(getActivity(), FormNewUserActivity.class);
     }
 }

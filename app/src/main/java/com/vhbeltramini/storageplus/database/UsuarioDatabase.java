@@ -16,7 +16,7 @@ import com.vhbeltramini.storageplus.model.Usuario;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Usuario.class}, version = 1)
+@Database(entities = {Usuario.class}, version = 2)
 public abstract class UsuarioDatabase extends RoomDatabase {
 
     public abstract UsuarioDao usuarioDao();
@@ -44,7 +44,7 @@ public abstract class UsuarioDatabase extends RoomDatabase {
 
             databaseWriteExecutor.execute(() -> {
                 UsuarioDao dao = INSTANCE.usuarioDao();
-                dao.deleteAll();
+//                dao.deleteAll();
 
 //                dao.insert(new Usuario("Victor Hugo", "1234", "vhbeltramini@gmail.com"));
 //                dao.insert(new Usuario("Bruce", "1234", "bruce@gmail.com"));

@@ -5,8 +5,10 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "tblocalizacao")
-public class Localizacao {
+public class Localizacao implements Serializable {
 
 
     @ColumnInfo(name = "id")

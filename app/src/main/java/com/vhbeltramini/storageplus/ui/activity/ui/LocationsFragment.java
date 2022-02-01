@@ -17,16 +17,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.vhbeltramini.storageplus.R;
+import com.vhbeltramini.storageplus.model.Localizacao;
 import com.vhbeltramini.storageplus.model.viewModel.LocalizacaoViewModel;
-import com.vhbeltramini.storageplus.ui.adapter.ListEstoqueAdapter;
 import com.vhbeltramini.storageplus.ui.adapter.ListLocalizacaoAdapter;
+import com.vhbeltramini.storageplus.ui.adapter.holders.UsuarioHolderView;
 
-public class LocationsFragment extends Fragment {
+import java.io.Serializable;
+import java.util.ArrayList;
+
+import static com.vhbeltramini.storageplus.ui.activity.DataConstants.LOCALIZACAO_KEY;
+
+public class LocationsFragment extends Fragment implements UsuarioHolderView.OnUserListener {
 
     RecyclerView mRecyclerView;
+    ArrayList<Localizacao> localizacoes;
     ListLocalizacaoAdapter mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
-
 
     @Nullable
     @Override
@@ -38,12 +44,13 @@ public class LocationsFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        mAdapter = new ListLocalizacaoAdapter(new ListLocalizacaoAdapter.LocalizacaoDiff());
+        mAdapter = new ListLocalizacaoAdapter(new ListLocalizacaoAdapter.LocalizacaoDiff(), this::onUserClick);
         mRecyclerView.setAdapter(mAdapter);
         LocalizacaoViewModel viewModel = new ViewModelProvider(this).get(LocalizacaoViewModel.class);
 
         viewModel.getAll().observe(requireActivity(), entities -> {
             mAdapter.submitList(entities);
+            localizacoes = (ArrayList<Localizacao>) entities;
 
             Log.e("Localizacao", entities.toString());
         });
@@ -64,4 +71,10 @@ public class LocationsFragment extends Fragment {
     }
 
 
+    @Override
+    public void onUserClick(int position) {
+        Intent goToForm = new Intent(getActivity(), FormNewLocationActivity.class);
+        goToForm.putExtra(LOCALIZACAO_KEY, (Serializable) localizacoes.get(position));
+        startActivity(goToForm);
+    }
 }

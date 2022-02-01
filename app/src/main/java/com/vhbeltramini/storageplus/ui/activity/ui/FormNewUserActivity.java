@@ -94,6 +94,8 @@ public class FormNewUserActivity extends AppCompatActivity {
             ususario = (Usuario) data.getSerializableExtra(USUARIO_KEY);
             nameForm.setText(ususario.getNome());
             emailForm.setText(ususario.getEmail());
+            passwordForm.setText(ususario.getSenha());
+            confpasswordForm.setText(ususario.getSenha());
             formTitle.setText(EDIT_USER_TITLE);
         } else {
             formTitle.setText(NEW_USER_TITLE);
