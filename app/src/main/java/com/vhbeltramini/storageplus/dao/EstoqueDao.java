@@ -6,6 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.vhbeltramini.storageplus.model.Estoque;
 
@@ -23,9 +24,8 @@ public interface EstoqueDao {
     @Delete
     void delete(Estoque estoque);
 
-//    @Query("UPDATE tbestoque SET nome=:nome,  descricao=:descricao, tblocalizacaoid=:idLocalizacao, tbadministradorid=:idAdministrador")
-    @Query("UPDATE tbestoque SET nome=:nome,  descricao=:descricao")
-    void update(String nome, String descricao);
+    @Update
+    void update(Estoque estoque);
 
     @Query("DELETE FROM tbestoque")
     void deleteAll();

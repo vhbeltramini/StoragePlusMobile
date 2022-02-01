@@ -12,21 +12,29 @@
         android:orientation="vertical"
         tools:context=".ui.activity.FormNewStudentActivity">
 
-        <EditText android:id="@+id/activity_form_storage_name"
+        <EditText
+            android:id="@+id/activity_form_storage_name"
             android:layout_width="match_parent"
-            android:layout_margin="8dp"
             android:layout_height="wrap_content"
-            android:inputType="textCapWords"
-            android:hint="Nome"
-            />
+            android:layout_margin="8dp"
+            android:hint="@string/name"
+            android:inputType="textCapWords" />
 
         <EditText android:id="@+id/activity_form_storage_description"
             android:layout_width="match_parent"
             android:layout_margin="8dp"
             android:inputType="textCapSentences"
             android:layout_height="wrap_content"
-            android:hint="Descrição"
+            android:hint="@string/description"
             />
+
+        <Spinner
+            android:id="@+id/activity_form_storage_spinner_locations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:layout_margin="8dp" />
+
 
     </LinearLayout>
 </ScrollView>

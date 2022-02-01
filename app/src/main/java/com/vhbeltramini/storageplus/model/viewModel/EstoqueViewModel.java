@@ -33,4 +33,8 @@ public class EstoqueViewModel extends AndroidViewModel {
         mStorageRepository.delete(storage);
     }
 
+    public void edit(Estoque storage) {
+        mStorageRepository.edit(storage);
+    }
+
 }

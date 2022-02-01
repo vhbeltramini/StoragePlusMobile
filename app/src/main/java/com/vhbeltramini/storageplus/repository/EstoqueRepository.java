@@ -37,4 +37,10 @@ public class EstoqueRepository {
         });
     }
 
+    public void edit(Estoque storage) {
+        EstoqueDatabase.databaseWriteExecutor.execute(() -> {
+            estoqueDao.update(storage);
+        });
+    }
+
 }

@@ -30,8 +30,6 @@ public class StartLogInPageActivity extends AppCompatActivity {
 
         signInButton = findViewById(R.id.sign_in_button);
 
-
-
         signInButton.setSize(SignInButton.SIZE_STANDARD);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +80,7 @@ public class StartLogInPageActivity extends AppCompatActivity {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
             // Signed in successfully, show authenticated UI.
-            Intent intent = new Intent(StartLogInPageActivity.this, InitialSystemPage.class);
+            Intent intent = new Intent(StartLogInPageActivity.this, MainStoragePlusActivity.class);
             startActivity(intent);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.

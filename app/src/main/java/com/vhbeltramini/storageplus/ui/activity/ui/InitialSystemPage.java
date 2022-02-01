@@ -13,7 +13,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -21,12 +23,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.vhbeltramini.storageplus.R;
+import com.vhbeltramini.storageplus.model.Usuario;
+import com.vhbeltramini.storageplus.model.viewModel.UsuarioViewModel;
 
 import java.io.InputStream;
 
 public class InitialSystemPage extends AppCompatActivity {
 
-    TextView name, id;
+    TextView name, id, email;
     ImageView profileImage;
     Button signOut;
 
@@ -44,8 +48,9 @@ public class InitialSystemPage extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         id = findViewById(R.id.personId);
-        name = findViewById(R.id.personName);
-        profileImage = findViewById(R.id.profileImage);
+        name = findViewById(R.id.navigation_header_container_name);
+        profileImage = findViewById(R.id.navigation_header_container_photo);
+        email = findViewById(R.id.navigation_header_container_email);
         signOut = findViewById(R.id.signOutButton);
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,13 +67,15 @@ public class InitialSystemPage extends AppCompatActivity {
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
+            UsuarioViewModel viewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
+
             String personName = acct.getDisplayName();
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
 
             id.setText(personId);
             name.setText(personName);
-//            Glide.with(this).load(String.valueOf(personPhoto)).centerCrop().into(profileImage);
+            Glide.with(this).load(String.valueOf(personPhoto)).centerCrop().into(profileImage);
             LoadImage loadImage = new LoadImage(profileImage);
             loadImage.execute(String.valueOf(personPhoto));
 
