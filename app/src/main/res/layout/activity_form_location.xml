@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".ui.activity.FormNewStudentActivity">
+
+        <TextView android:id="@+id/activity_form_location_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="34sp"
+            android:layout_margin="8dp"
+            tools:text="name" />
+
+        <EditText android:id="@+id/activity_form_location_name"
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:hint="@string/name"
+            android:autofillHints="" />
+
+        <EditText android:id="@+id/activity_form_location_description"
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:inputType="textCapSentences"
+            android:layout_height="wrap_content"
+            android:hint="@string/adress"
+            android:autofillHints=""
+            />
+
+        <Button android:id="@+id/activity_form_location_save_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/save"
+            android:orientation="vertical" />
+
+
+
+    </LinearLayout>
+</ScrollView>
