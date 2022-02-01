@@ -25,6 +25,7 @@ import com.vhbeltramini.storageplus.ui.adapter.holders.UsuarioHolderView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static com.vhbeltramini.storageplus.ui.activity.DataConstants.USUARIO_KEY;
 
@@ -41,6 +42,8 @@ public class UsersFragment extends Fragment implements UsuarioHolderView.OnUserL
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_users, container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.activity_list_users_recycler_view);
+
+        requireActivity().setTitle("Usuários");
 
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);

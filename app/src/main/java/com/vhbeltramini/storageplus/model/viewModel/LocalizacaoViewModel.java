@@ -34,7 +34,7 @@ public class LocalizacaoViewModel extends AndroidViewModel {
     }
 
     public void edit(Localizacao entity) {
-        mRepository.delete(entity);
+        mRepository.edit(entity);
     }
 
 }

@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,7 @@ public class FormNewLocationActivity extends AppCompatActivity {
     public static final String EDIT_LOCATION_TITLE = "Editar Localização";
     public static final String NEW_LOCATION_TITLE = "Nova Localização";
     private LocalizacaoViewModel localizacaoViewModel;
+    private TextView formTitle;
     private EditText nameForm;
     private EditText descriptionForm;
     private Localizacao localizacao;
@@ -32,6 +34,7 @@ public class FormNewLocationActivity extends AppCompatActivity {
         setTitle("Nova Localizacão");
         setContentView(R.layout.activity_form_location);
         localizacaoViewModel = new ViewModelProvider(this).get(LocalizacaoViewModel.class);
+        formTitle = findViewById(R.id.activity_form_location_title);
 
         startForm();
         handleFormData();
@@ -85,9 +88,9 @@ public class FormNewLocationActivity extends AppCompatActivity {
             localizacao = (Localizacao) data.getSerializableExtra(LOCALIZACAO_KEY);
             nameForm.setText(localizacao.getNome());
             descriptionForm.setText(localizacao.getDescricao());
-            setTitle(EDIT_LOCATION_TITLE);
+            formTitle.setText(EDIT_LOCATION_TITLE);
         } else {
-            setTitle(NEW_LOCATION_TITLE);
+            formTitle.setText(NEW_LOCATION_TITLE);
             localizacao = new Localizacao();
         }
     }

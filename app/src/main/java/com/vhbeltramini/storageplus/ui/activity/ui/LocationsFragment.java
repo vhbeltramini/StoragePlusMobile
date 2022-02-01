@@ -40,6 +40,8 @@ public class LocationsFragment extends Fragment implements UsuarioHolderView.OnU
         View rootView = inflater.inflate(R.layout.fragment_location, container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.activity_list_locations_recycler_view);
 
+        requireActivity().setTitle("Localizações");
+
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());

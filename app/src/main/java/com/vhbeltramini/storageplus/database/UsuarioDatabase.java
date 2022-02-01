@@ -16,7 +16,7 @@ import com.vhbeltramini.storageplus.model.Usuario;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Usuario.class}, version = 2)
+@Database(entities = {Usuario.class}, version = 3)
 public abstract class UsuarioDatabase extends RoomDatabase {
 
     public abstract UsuarioDao usuarioDao();
@@ -31,26 +31,26 @@ public abstract class UsuarioDatabase extends RoomDatabase {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), UsuarioDatabase.class, DB_NAME)
                     .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
-                    .addCallback(sRoomDatabaseCallback)
+//                    .addCallback(sRoomDatabaseCallback)
                     .build();
         }
         return INSTANCE;
     }
 
-    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
-        @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
-
-            databaseWriteExecutor.execute(() -> {
-                UsuarioDao dao = INSTANCE.usuarioDao();
+//    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
+//        @Override
+//        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+//            super.onCreate(db);
+//
+//            databaseWriteExecutor.execute(() -> {
+//                UsuarioDao dao = INSTANCE.usuarioDao();
 //                dao.deleteAll();
-
+//
 //                dao.insert(new Usuario("Victor Hugo", "1234", "vhbeltramini@gmail.com"));
 //                dao.insert(new Usuario("Bruce", "1234", "bruce@gmail.com"));
 //                Log.i("usuariosssssssssss", dao.getAll().toString());
-            });
-        }
-    };
+//            });
+//        }
+//    };
 
 }

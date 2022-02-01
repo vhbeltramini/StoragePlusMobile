@@ -35,6 +35,8 @@ public class StoragesFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_storages, container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.activity_list_storages_recycler_view);
 
+        requireActivity().setTitle("Estoques");
+
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());

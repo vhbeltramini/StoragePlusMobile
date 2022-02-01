@@ -20,6 +20,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.vhbeltramini.storageplus.R;
 import com.vhbeltramini.storageplus.model.Estoque;
 import com.vhbeltramini.storageplus.model.viewModel.EstoqueViewModel;
+import com.vhbeltramini.storageplus.model.viewModel.LocalizacaoViewModel;
+import com.vhbeltramini.storageplus.model.viewModel.UsuarioViewModel;
 import com.vhbeltramini.storageplus.ui.adapter.ListEstoqueAdapter;
 
 public class ListStoragesActivity extends AppCompatActivity {
@@ -39,12 +41,14 @@ public class ListStoragesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         estoqueViewModel = new ViewModelProvider(this).get(EstoqueViewModel.class);
+        new ViewModelProvider(this).get(UsuarioViewModel.class);
+        new ViewModelProvider(this).get(LocalizacaoViewModel.class);
         estoqueViewModel.getAll().observe(this, storages -> {
             adapter.submitList(storages);
 
             Log.e("Storagesssssssssss", storages.toString());
         });
-        openFormAddNewStudent();
+        openFormAddNewStorage();
     }
 
     @Override
@@ -73,29 +77,7 @@ public class ListStoragesActivity extends AppCompatActivity {
         super.onResume();
     }
 
-//    private void handleListStudentes() {
-//        handleStudentsAdapter();
-//        handleStudentListSelection();
-//        registerForContextMenu(studentsListView);
-//    }
-
-
-//
-//    private void handleSimpleClickStudentList() {
-//        studentsListView.setOnItemClickListener((adapterView, view, position, id) -> {
-//                    Estoque estoque = (Estoque) adapterView.getItemAtPosition(position);
-//                    openFormForEdit(estoque);
-//                }
-//        );
-//    }
-//
-//    private void openFormForEdit(Estoque estoque) {
-//        Intent goToForm = new Intent(ListStoragesActivity.this, FormNewStorageActivity.class);
-//        goToForm.putExtra(DataConstants.STORAGE_KEY, estoque);
-//        startActivity(goToForm);
-//    }
-
-    private void openFormAddNewStudent() {
+    private void openFormAddNewStorage() {
         FloatingActionButton addStorageButton = findViewById(R.id.activity_list_storages_button_new_storages);
         addStorageButton.setOnClickListener(v -> startActivity(new Intent(ListStoragesActivity.this, FormNewStorageActivity.class)));
     }

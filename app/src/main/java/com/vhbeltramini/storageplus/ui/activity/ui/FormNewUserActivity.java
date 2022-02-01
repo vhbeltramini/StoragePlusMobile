@@ -37,7 +37,6 @@ public class FormNewUserActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
 
         formTitle = findViewById(R.id.activity_form_user_title);
-        formTitle.setText(NEW_USER_TITLE);
 
         startForm();
         handleFormData();

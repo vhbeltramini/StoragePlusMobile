@@ -14,7 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Database(entities = {Localizacao.class}, version = 2)
-public abstract class LocalizacaoDatabase extends RoomDatabase{
+public abstract class LocalizacaoDatabase extends RoomDatabase {
 
     public abstract LocalizacaoDao localizacaoDao();
     private static final String DB_NAME = "dbstorageplus";

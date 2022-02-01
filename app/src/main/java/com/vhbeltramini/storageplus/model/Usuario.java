@@ -65,7 +65,7 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
-    @java.lang.Override
+    @Override
     public java.lang.String toString() {
         return "Usuario{" +
                 "id=" + id +
