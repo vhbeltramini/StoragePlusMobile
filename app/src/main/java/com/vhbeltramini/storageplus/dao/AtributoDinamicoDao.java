@@ -1,28 +1,29 @@
-//package com.vhbeltramini.storageplus.dao;
-//
-//import androidx.room.Dao;
-//import androidx.room.Delete;
-//import androidx.room.Insert;
-//import androidx.room.OnConflictStrategy;
-//import androidx.room.Query;
-//
-//import com.vhbeltramini.storageplus.model.AtributoDinamico;
-//
-//import java.util.List;
-//
-//@Dao
-//public interface AtributoDinamicoDao {
-//
-//    @Query("SELECT * FROM tbatributodinamico")
-//    List<AtributoDinamico> getAtributosDinamicos();
-//
-//    @Insert(onConflict = OnConflictStrategy.IGNORE)
-//    void insertAtributoDinamico(AtributoDinamico atributo);
-//
-//    @Delete
-//    void deleteAtributoDinamico(AtributoDinamico atributo);
-//
-//    @Query("UPDATE tbatributodinamico SET nome=:nome,  descricao=:descricao, tbcategoriaid=:idCategoria")
-//    void updateAtributoDinamico(String nome, String descricao, int idCategoria);
-//
-//}
+package com.vhbeltramini.storageplus.dao;
+
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
+import androidx.room.Update;
+
+import com.vhbeltramini.storageplus.model.AtributoDinamico;
+
+import java.util.List;
+
+@Dao
+public interface AtributoDinamicoDao {
+
+    @Query("SELECT * FROM tbatributodinamico")
+    List<AtributoDinamico> getAll();
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insert(AtributoDinamico atributo);
+
+    @Delete
+    void delete(AtributoDinamico atributo);
+
+    @Update
+    void update(AtributoDinamico atributo);
+
+}

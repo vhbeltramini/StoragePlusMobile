@@ -3,6 +3,7 @@ package com.vhbeltramini.storageplus.model;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -26,9 +27,13 @@ public class Estoque implements Serializable {
     @Embedded(prefix = "tbadministrador")
     private Administrador administrador;
 
+    @Ignore
     public Estoque(String nome, String descricao) {
         this.nome = nome;
         this.descricao = descricao;
+    }
+
+    public Estoque() {
     }
 
     public void setId(int id) {

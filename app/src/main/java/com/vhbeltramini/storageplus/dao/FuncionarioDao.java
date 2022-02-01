@@ -5,6 +5,7 @@
 //import androidx.room.Insert;
 //import androidx.room.OnConflictStrategy;
 //import androidx.room.Query;
+//import androidx.room.Update;
 //
 //import com.vhbeltramini.storageplus.model.Funcionario;
 //
@@ -14,15 +15,15 @@
 //public interface FuncionarioDao {
 //
 //    @Query("SELECT * FROM tbfuncionario")
-//    List<Funcionario> getFuncionarios();
+//    List<Funcionario> getAll();
 //
 //    @Insert(onConflict = OnConflictStrategy.IGNORE)
-//    void insertFuncionario(Funcionario funcionario);
+//    void insert(Funcionario funcionario);
 //
 //    @Delete
-//    void deleteFuncionario(Funcionario funcionario);
+//    void delete(Funcionario funcionario);
 //
-//    @Query("UPDATE tbfuncionario SET nome=:nome,  senha=:senha, email=:email, tbestoqueid=:idEstoque")
-//    void updateAdministrador(String nome, String senha, String email, int idEstoque);
+//    @Update
+//    void update(String nome, String senha, String email, int idEstoque);
 //
 //}

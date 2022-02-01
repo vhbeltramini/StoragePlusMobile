@@ -1,5 +1,6 @@
 package com.vhbeltramini.storageplus.ui.adapter.holders;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +23,10 @@ public class LocalizacaoHolderView extends RecyclerView.ViewHolder {
         descriptionItemView = itemView.findViewById(R.id.item_description);
     }
 
+    @SuppressLint("SetTextI18n")
     public void bind(String name, String description) {
         nameItemView.setText(name);
-        descriptionItemView.setText(description);
+        descriptionItemView.setText("Endereço: " + description);
     }
 
     public static LocalizacaoHolderView create(ViewGroup parent) {

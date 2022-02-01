@@ -17,7 +17,7 @@ import com.vhbeltramini.storageplus.model.Localizacao;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Administrador.class}, exportSchema = false, version = 1)
+@Database(entities = {Administrador.class}, version = 1)
 public abstract class AdministradorDatabase extends RoomDatabase{
 
     public abstract AdministradorDao administradorDao();
@@ -30,7 +30,8 @@ public abstract class AdministradorDatabase extends RoomDatabase{
     public static synchronized AdministradorDatabase getInstance(Context context) {
         if (INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AdministradorDatabase.class, DB_NAME)
-                    .allowMainThreadQueries().fallbackToDestructiveMigration().build();
+                    .allowMainThreadQueries()
+                    .build();
         }
         return INSTANCE;
     }

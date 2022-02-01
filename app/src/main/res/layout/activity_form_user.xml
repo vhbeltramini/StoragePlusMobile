@@ -12,14 +12,16 @@
         android:orientation="vertical"
         tools:context=".ui.activity.FormNewStudentActivity">
 
-        <TextView
-            android:id="@+id/activity_form_user_title"
+        <TextView android:id="@+id/activity_form_user_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:layout_marginTop="10dp"
-            android:textSize="32dp"
-            />
+            android:gravity="start"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="34sp"
+            android:layout_margin="8dp"
+            android:textColor="@color/primary"
+            tools:text="name" />
 
         <EditText android:id="@+id/activity_form_user_name"
             android:layout_width="match_parent"
@@ -53,7 +55,7 @@
             android:hint="@string/confirme_password"
             />
 
-        <Button android:id="@+id/activity_form_location_save_button"
+        <Button android:id="@+id/activity_form_user_save_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"

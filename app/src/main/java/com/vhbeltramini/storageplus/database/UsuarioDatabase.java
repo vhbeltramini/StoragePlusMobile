@@ -2,6 +2,7 @@ package com.vhbeltramini.storageplus.database;
 
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -15,7 +16,7 @@ import com.vhbeltramini.storageplus.model.Usuario;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Usuario.class}, exportSchema = false, version = 1)
+@Database(entities = {Usuario.class}, version = 1)
 public abstract class UsuarioDatabase extends RoomDatabase {
 
     public abstract UsuarioDao usuarioDao();
@@ -28,7 +29,10 @@ public abstract class UsuarioDatabase extends RoomDatabase {
     public static synchronized UsuarioDatabase getInstance(Context context) {
         if (INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), UsuarioDatabase.class, DB_NAME)
-                    .allowMainThreadQueries().fallbackToDestructiveMigration().build();
+                    .allowMainThreadQueries()
+                    .fallbackToDestructiveMigration()
+                    .addCallback(sRoomDatabaseCallback)
+                    .build();
         }
         return INSTANCE;
     }
@@ -41,6 +45,10 @@ public abstract class UsuarioDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> {
                 UsuarioDao dao = INSTANCE.usuarioDao();
                 dao.deleteAll();
+
+//                dao.insert(new Usuario("Victor Hugo", "1234", "vhbeltramini@gmail.com"));
+//                dao.insert(new Usuario("Bruce", "1234", "bruce@gmail.com"));
+//                Log.i("usuariosssssssssss", dao.getAll().toString());
             });
         }
     };

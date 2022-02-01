@@ -24,7 +24,7 @@ public class UsuarioHolderView extends RecyclerView.ViewHolder {
 
     public void bind(String name, String description) {
         nameItemView.setText(name);
-        descriptionItemView.setText(description);
+        descriptionItemView.setText("Email: " + description);
     }
 
     public static UsuarioHolderView create(ViewGroup parent) {

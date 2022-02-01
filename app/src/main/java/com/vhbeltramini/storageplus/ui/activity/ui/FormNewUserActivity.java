@@ -33,10 +33,11 @@ public class FormNewUserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_form_location);
+        setContentView(R.layout.activity_form_user);
         viewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
 
         formTitle = findViewById(R.id.activity_form_user_title);
+        formTitle.setText(NEW_USER_TITLE);
 
         startForm();
         handleFormData();
@@ -72,7 +73,7 @@ public class FormNewUserActivity extends AppCompatActivity {
     }
 
     private void handleSaveButton() {
-        Button saveButton = findViewById(R.id.activity_form_location_save_button);
+        Button saveButton = findViewById(R.id.activity_form_user_save_button);
         saveButton.setOnClickListener(v -> {
             handleSave();
         });

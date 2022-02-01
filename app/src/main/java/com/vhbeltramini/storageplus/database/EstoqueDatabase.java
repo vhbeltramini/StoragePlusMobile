@@ -15,7 +15,7 @@ import com.vhbeltramini.storageplus.model.Estoque;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Estoque.class}, exportSchema = false, version = 1)
+@Database(entities = {Estoque.class}, version = 1)
 public abstract class EstoqueDatabase extends RoomDatabase{
 
     public abstract EstoqueDao estoqueDao();
@@ -29,9 +29,30 @@ public abstract class EstoqueDatabase extends RoomDatabase{
     public static synchronized EstoqueDatabase getInstance(Context context) {
         if (INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), EstoqueDatabase.class, DB_NAME)
-                    .allowMainThreadQueries().fallbackToDestructiveMigration().build();
+                    .addCallback(sRoomDatabaseCallback)
+                    .allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
+                    .fallbackToDestructiveMigration()
+                    .build();
         }
         return INSTANCE;
     }
+
+    private static final RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+
+            databaseWriteExecutor.execute(() -> {
+//                EstoqueDao dao = INSTANCE.estoqueDao();
+//                dao.deleteAll();
+//
+//                Estoque estoque = new Estoque("Estoque 1", "Estoque de Agua");
+//                dao.insert(estoque);
+//                estoque = new Estoque("Estoque 1", "Estoque de Vento");
+//                dao.insert(estoque);
+            });
+        }
+    };
 
 }

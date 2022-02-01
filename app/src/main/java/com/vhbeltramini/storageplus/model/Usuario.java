@@ -2,6 +2,7 @@ package com.vhbeltramini.storageplus.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "tbusuario")
@@ -20,6 +21,7 @@ public class Usuario {
     @ColumnInfo(name = "email")
     protected String email;
 
+    @Ignore
     public Usuario(String nome, String senha, String email) {
         this.nome = nome;
         this.senha = senha;
