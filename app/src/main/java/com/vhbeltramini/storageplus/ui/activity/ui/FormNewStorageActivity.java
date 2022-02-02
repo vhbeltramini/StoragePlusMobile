@@ -3,6 +3,7 @@ package com.vhbeltramini.storageplus.ui.activity.ui;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -26,6 +27,7 @@ import com.vhbeltramini.storageplus.model.viewModel.LocalizacaoViewModel;
 import com.vhbeltramini.storageplus.model.viewModel.UsuarioViewModel;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static com.vhbeltramini.storageplus.ui.activity.DataConstants.STORAGE_KEY;
 
@@ -38,6 +40,7 @@ public class FormNewStorageActivity extends AppCompatActivity {
     private EditText nameForm, descriptionForm;
     private Spinner locationsSpinner, administratorSpinner;
     private Estoque storage;
+    private Button deleteButton;
     private LocalizacaoViewModel mLocalizacaoViewModel;
     private UsuarioViewModel mUsuarioViewModel;
     private final ArrayList localizacao = new ArrayList<>();
@@ -51,6 +54,7 @@ public class FormNewStorageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_storage);
         formTitle = findViewById(R.id.activity_form_storage_title);
+        deleteButton = findViewById(R.id.activity_form_storage_delete_button);
         estoqueViewModel = new ViewModelProvider(this).get(EstoqueViewModel.class);
         startForm();
 
@@ -134,7 +138,6 @@ public class FormNewStorageActivity extends AppCompatActivity {
     }
 
     private void handleButtons() {
-        Button deleteButton = findViewById(R.id.activity_form_storage_delete_button);
         Button saveButton = findViewById(R.id.activity_form_storage_save_button);
         saveButton.setOnClickListener(v -> {
             handleSave();

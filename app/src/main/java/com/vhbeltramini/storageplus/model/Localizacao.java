@@ -1,11 +1,15 @@
 package com.vhbeltramini.storageplus.model;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import static java.util.Objects.nonNull;
 
 @Entity(tableName = "tblocalizacao")
 public class Localizacao implements Serializable {
@@ -54,7 +58,8 @@ public class Localizacao implements Serializable {
         this.descricao = descricao;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public boolean hasValidId() {
-        return id > 0;
+        return nonNull(id) && id > 0;
     }
 }

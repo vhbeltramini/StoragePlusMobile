@@ -2,6 +2,7 @@ package com.vhbeltramini.storageplus.ui.activity.ui;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -31,6 +33,7 @@ public class FormNewLocationActivity extends AppCompatActivity {
     private EditText descriptionForm;
     private Localizacao localizacao;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +54,7 @@ public class FormNewLocationActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         handleButtons();
@@ -70,6 +74,7 @@ public class FormNewLocationActivity extends AppCompatActivity {
         return localizacao;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void handleButtons() {
         Button saveButton = findViewById(R.id.activity_form_location_save_button);
         saveButton.setOnClickListener(v -> {
@@ -80,15 +85,18 @@ public class FormNewLocationActivity extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void handleSave() {
+        fillData();
         if (localizacao.hasValidId()) {
-            localizacaoViewModel.edit(fillData());
+            localizacaoViewModel.edit(localizacao);
         } else {
-            localizacaoViewModel.insert(fillData());
+            localizacaoViewModel.insert(localizacao);
         }
         finish();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void handleDelete() {
         if (localizacao.hasValidId()) {
             new AlertDialog
