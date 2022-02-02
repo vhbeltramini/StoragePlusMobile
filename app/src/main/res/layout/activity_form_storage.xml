@@ -8,9 +8,19 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context=".ui.activity.FormNewStudentActivity">
+
+        <TextView android:id="@+id/activity_form_storage_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="34sp"
+            android:layout_margin="8dp"
+            tools:text="name" />
 
         <EditText
             android:id="@+id/activity_form_storage_name"
@@ -28,12 +38,45 @@
             android:hint="@string/description"
             />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/localizacao"
+            android:layout_marginStart="11dp"
+            />
         <Spinner
             android:id="@+id/activity_form_storage_spinner_locations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
             android:layout_margin="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/responsavel"
+            android:layout_marginStart="11dp"
+            />
+        <Spinner
+            android:id="@+id/activity_form_storage_spinner_administrator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:layout_margin="8dp" />
+
+        <Button android:id="@+id/activity_form_storage_save_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/save"
+            android:orientation="vertical" />
+
+        <Button android:id="@+id/activity_form_storage_delete_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/delete"
+            android:orientation="vertical" />
 
 
     </LinearLayout>

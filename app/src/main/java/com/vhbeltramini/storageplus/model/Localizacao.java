@@ -13,7 +13,7 @@ public class Localizacao implements Serializable {
 
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private Long id;
 
     @ColumnInfo(name = "nome")
     private String nome;
@@ -30,11 +30,11 @@ public class Localizacao implements Serializable {
     public Localizacao() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

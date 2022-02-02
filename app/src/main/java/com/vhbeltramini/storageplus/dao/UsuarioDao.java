@@ -18,6 +18,9 @@ public interface UsuarioDao {
     @Query("SELECT * FROM tbusuario")
     LiveData<List<Usuario>> getAll();
 
+    @Query("SELECT * FROM tbusuario where id=:id")
+    Usuario getById(Long id);
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Usuario usuario);
 

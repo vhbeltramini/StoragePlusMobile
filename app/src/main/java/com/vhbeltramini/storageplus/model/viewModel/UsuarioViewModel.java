@@ -27,6 +27,10 @@ public class UsuarioViewModel extends AndroidViewModel {
         return mAll;
     }
 
+    public Usuario getByid(Long id) {
+        return mRepository.getByid(id);
+    }
+
     public void insert(Usuario entity) {
         mRepository.insert(entity);
     }

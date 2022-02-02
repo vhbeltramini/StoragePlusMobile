@@ -25,4 +25,6 @@
     <string name="password">Senha</string>
     <string name="confirme_password">Confirmar senha</string>
     <string name="name">Nome</string>
+    <string name="localizacao">Localização</string>
+    <string name="responsavel">Responsável</string>
 </resources>
