@@ -18,6 +18,7 @@
     <string name="user">Perfil</string>
     <string name="company">Empresa</string>
     <string name="save">Salvar</string>
+    <string name="delete">Excluir</string>
     <string name="description">Descrição</string>
     <string name="adress">Endereço</string>
     <string name="email">E-Mail</string>
