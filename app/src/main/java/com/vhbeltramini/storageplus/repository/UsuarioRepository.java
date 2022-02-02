@@ -26,6 +26,10 @@ public class UsuarioRepository {
         return allEntities;
     }
 
+    public Usuario getByid(Long id) {
+        return dao.getById(id);
+    }
+
     public void insert(Usuario entity) {
         UsuarioDatabase.databaseWriteExecutor.execute(() -> {
             dao.insert(entity);

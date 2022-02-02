@@ -25,6 +25,10 @@ public class LocalizacaoViewModel extends AndroidViewModel {
         return mAll;
     }
 
+    public Localizacao getByid(Long id) {
+        return mRepository.getByid(id);
+    }
+
     public void insert(Localizacao entity) {
         mRepository.insert(entity);
     }

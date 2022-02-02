@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import com.vhbeltramini.storageplus.dao.LocalizacaoDao;
 import com.vhbeltramini.storageplus.database.LocalizacaoDatabase;
 import com.vhbeltramini.storageplus.model.Localizacao;
+import com.vhbeltramini.storageplus.model.Usuario;
 
 import java.util.List;
 
@@ -23,6 +24,11 @@ public class LocalizacaoRepository {
 
     public LiveData<List<Localizacao>> getAll() {
         return allEntities;
+    }
+
+
+    public Localizacao getByid(Long id) {
+        return dao.getById(id);
     }
 
     public void insert(Localizacao entity) {

@@ -12,7 +12,7 @@ public class Usuario implements Serializable {
 
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    protected int id;
+    protected Long id;
 
     @ColumnInfo(name = "nome")
     protected String nome;
@@ -33,11 +33,11 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
