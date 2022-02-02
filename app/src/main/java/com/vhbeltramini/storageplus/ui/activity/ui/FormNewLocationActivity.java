@@ -1,9 +1,11 @@
 package com.vhbeltramini.storageplus.ui.activity.ui;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -23,6 +25,7 @@ public class FormNewLocationActivity extends AppCompatActivity {
     public static final String EDIT_LOCATION_TITLE = "Editar Localização";
     public static final String NEW_LOCATION_TITLE = "Nova Localização";
     private LocalizacaoViewModel localizacaoViewModel;
+    private Button deleteButton;
     private TextView formTitle;
     private EditText nameForm;
     private EditText descriptionForm;
@@ -35,10 +38,11 @@ public class FormNewLocationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_form_location);
         localizacaoViewModel = new ViewModelProvider(this).get(LocalizacaoViewModel.class);
         formTitle = findViewById(R.id.activity_form_location_title);
+        deleteButton = findViewById(R.id.activity_form_location_delete_button);
 
         startForm();
         handleFormData();
-        handleSaveButton();
+        handleButtons();
     }
 
     @Override
@@ -49,7 +53,7 @@ public class FormNewLocationActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        handleSaveButton();
+        handleButtons();
         return super.onOptionsItemSelected(item);
     }
 
@@ -66,10 +70,13 @@ public class FormNewLocationActivity extends AppCompatActivity {
         return localizacao;
     }
 
-    private void handleSaveButton() {
+    private void handleButtons() {
         Button saveButton = findViewById(R.id.activity_form_location_save_button);
         saveButton.setOnClickListener(v -> {
             handleSave();
+        });
+        deleteButton.setOnClickListener(v -> {
+            handleDelete();
         });
     }
 
@@ -82,6 +89,21 @@ public class FormNewLocationActivity extends AppCompatActivity {
         finish();
     }
 
+    private void handleDelete() {
+        if (localizacao.hasValidId()) {
+            new AlertDialog
+                    .Builder(this)
+                    .setTitle("Removendo Localização")
+                    .setMessage("Tem certeza que deseja deletar essa localização?")
+                    .setPositiveButton("Sim", (dialogInterface, i) -> {
+                        localizacaoViewModel.delete(fillData());
+                        finish();
+                    })
+                    .setNegativeButton("Não", null)
+                    .show();
+        }
+    }
+
     private void handleFormData() {
         Intent data = getIntent();
         if (data.hasExtra(LOCALIZACAO_KEY)) {
@@ -89,9 +111,11 @@ public class FormNewLocationActivity extends AppCompatActivity {
             nameForm.setText(localizacao.getNome());
             descriptionForm.setText(localizacao.getDescricao());
             formTitle.setText(EDIT_LOCATION_TITLE);
+            deleteButton.setVisibility(View.VISIBLE);
         } else {
             formTitle.setText(NEW_LOCATION_TITLE);
             localizacao = new Localizacao();
+            deleteButton.setVisibility(View.INVISIBLE);
         }
     }
 

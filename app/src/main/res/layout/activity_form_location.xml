@@ -46,6 +46,12 @@
             android:text="@string/save"
             android:orientation="vertical" />
 
+        <Button android:id="@+id/activity_form_location_delete_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/delete"
+            android:orientation="vertical" />
 
 
     </LinearLayout>

@@ -1,20 +1,27 @@
 package com.vhbeltramini.storageplus.ui.activity.ui;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.vhbeltramini.storageplus.R;
 import com.vhbeltramini.storageplus.model.Usuario;
 import com.vhbeltramini.storageplus.model.viewModel.UsuarioViewModel;
+import com.vhbeltramini.storageplus.repository.AES;
 
 import static com.vhbeltramini.storageplus.ui.activity.DataConstants.USUARIO_KEY;
 
@@ -24,12 +31,11 @@ public class FormNewUserActivity extends AppCompatActivity {
     public static final String NEW_USER_TITLE = "Novo Usuário";
     private UsuarioViewModel viewModel;
     private TextView formTitle;
-    private EditText nameForm;
-    private EditText emailForm;
-    private EditText passwordForm;
-    private EditText confpasswordForm;
+    private Button deleteButton;
+    private EditText nameForm, emailForm, passwordForm, confpasswordForm;
     private Usuario ususario;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +43,7 @@ public class FormNewUserActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
 
         formTitle = findViewById(R.id.activity_form_user_title);
+        deleteButton = findViewById(R.id.activity_form_user_delete_button);
 
         startForm();
         handleFormData();
@@ -76,29 +83,71 @@ public class FormNewUserActivity extends AppCompatActivity {
         saveButton.setOnClickListener(v -> {
             handleSave();
         });
+        deleteButton.setOnClickListener(v -> {
+            handleDelete();
+        });
     }
 
     private void handleSave() {
+        if (!handleData()) {
+            return;
+        }
+
         if (ususario.hasValidId()) {
-            viewModel.edit(fillData());
+            viewModel.edit(ususario);
         } else {
-            viewModel.insert(fillData());
+            viewModel.insert(ususario);
         }
         finish();
     }
 
+    private Boolean handleData() {
+        if (!passwordForm.getText().equals(confpasswordForm.getText())) {
+            Toast.makeText(this, "As senhas não corespondem", Toast.LENGTH_LONG).show();
+            confpasswordForm.setHint("As senhas não corespondem");
+            confpasswordForm.setBackgroundColor(Color.red(1));
+            return false;
+        } else if (passwordForm.getText().length() < 8) {
+            Toast.makeText(this, "A senhas deve ter no mínimo 8 dígitos", Toast.LENGTH_LONG).show();
+            passwordForm.setHint("A senhas deve ter no mínimo 8 dígitos");
+            return false;
+        }
+
+        fillData();
+        return true;
+    }
+
+
+    private void handleDelete() {
+        if (ususario.hasValidId()) {
+            new AlertDialog
+                    .Builder(this)
+                    .setTitle("Removendo Usuário")
+                    .setMessage("Tem certeza que deseja deletar essa usuário?")
+                    .setPositiveButton("Sim", (dialogInterface, i) -> {
+                        viewModel.delete(fillData());
+                        finish();
+                    })
+                    .setNegativeButton("Não", null)
+                    .show();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void handleFormData() {
         Intent data = getIntent();
         if (data.hasExtra(USUARIO_KEY)) {
             ususario = (Usuario) data.getSerializableExtra(USUARIO_KEY);
             nameForm.setText(ususario.getNome());
             emailForm.setText(ususario.getEmail());
-            passwordForm.setText(ususario.getSenha());
-            confpasswordForm.setText(ususario.getSenha());
+            passwordForm.setText(AES.decrypt(ususario.getSenha()));
+            confpasswordForm.setText(AES.decrypt(ususario.getSenha()));
             formTitle.setText(EDIT_USER_TITLE);
+            deleteButton.setVisibility(View.VISIBLE);
         } else {
             formTitle.setText(NEW_USER_TITLE);
             ususario = new Usuario();
+            deleteButton.setVisibility(View.INVISIBLE);
         }
     }
 

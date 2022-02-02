@@ -7,33 +7,32 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/start_log_in_page_app_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="85dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="241dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="416dp"
+        android:layout_marginBottom="405dp"
         android:text="Storage"
         android:textColor="#000000"
         android:textSize="56sp" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="66dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="190dp"
-        android:layout_marginTop="230dp"
-        android:layout_marginEnd="155dp"
-        android:layout_marginBottom="384dp"
+        android:layout_alignTop="@+id/start_log_in_page_app_name"
+        android:layout_alignEnd="@+id/start_log_in_page_app_name"
+        android:layout_alignBottom="@+id/start_log_in_page_app_name"
+        android:layout_marginTop="-3dp"
+        android:layout_marginEnd="-35dp"
+        android:layout_marginBottom="-80dp"
         android:text="+"
+        android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="120sp" />
+        android:textSize="100sp" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"

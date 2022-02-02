@@ -1,8 +1,8 @@
 package com.vhbeltramini.storageplus.ui.activity.ui;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -26,7 +27,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.vhbeltramini.storageplus.R;
+import com.vhbeltramini.storageplus.model.Usuario;
 import com.vhbeltramini.storageplus.model.viewModel.UsuarioViewModel;
+import com.vhbeltramini.storageplus.repository.AES;
+
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class MainStoragePlusActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -35,6 +45,7 @@ public class MainStoragePlusActivity extends AppCompatActivity implements Naviga
     ImageView profileImage;
     GoogleSignInClient mGoogleSignInClient;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +55,11 @@ public class MainStoragePlusActivity extends AppCompatActivity implements Naviga
         setSupportActionBar(toolbar);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
-        handleGoogleLogIn(navigationView);
+        try {
+            handleGoogleLogIn(navigationView);
+        } catch (NoSuchAlgorithmException | IllegalBlockSizeException | InvalidKeyException | BadPaddingException | NoSuchPaddingException e) {
+            e.printStackTrace();
+        }
 
         drawerLayout = findViewById(R.id.drawer_layout);
 
@@ -63,7 +78,8 @@ public class MainStoragePlusActivity extends AppCompatActivity implements Naviga
 
     }
 
-    private void handleGoogleLogIn(NavigationView navigationView) {
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void handleGoogleLogIn(NavigationView navigationView) throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
         GoogleSignInOptions gso = new GoogleSignInOptions .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -76,15 +92,18 @@ public class MainStoragePlusActivity extends AppCompatActivity implements Naviga
         profileImage = headerLayout.findViewById(R.id.navigation_header_container_photo);
         email = headerLayout.findViewById(R.id.navigation_header_container_email);
 
+
+
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
             UsuarioViewModel viewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
 
+
             String personName = acct.getDisplayName();
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
+            viewModel.insert(new Usuario(personName, AES.encrypt(personId), acct.getEmail()));
 
-//            id.setText(personId);
             name.setText(personName);
             email.setText(acct.getEmail());
             Glide
