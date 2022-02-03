@@ -83,11 +83,11 @@ public class Estoque implements Serializable {
                 ", nome='" + nome + '\'' +
                 ", descricao='" + descricao + '\'' +
                 ", localizacao=" + localizacao +
-                ", administrador=" + administrador +
+                ", administrador=" + administrador.toString() +
                 '}';
     }
 
     public boolean hasValidId() {
-        return id > 1;
+        return id > 0;
     }
 }

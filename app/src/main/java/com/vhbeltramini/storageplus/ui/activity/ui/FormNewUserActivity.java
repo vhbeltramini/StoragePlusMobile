@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,6 +72,7 @@ public class FormNewUserActivity extends AppCompatActivity {
     }
 
     private Usuario fillData() {
+
         ususario.setNome(nameForm.getText().toString());
         ususario.setEmail(emailForm.getText().toString());
         ususario.setSenha(passwordForm.getText().toString());
@@ -102,19 +104,22 @@ public class FormNewUserActivity extends AppCompatActivity {
     }
 
     private Boolean handleData() {
-        if (!passwordForm.getText().equals(confpasswordForm.getText())) {
+        String password = passwordForm.getText().toString();
+        String confPassword = confpasswordForm.getText().toString();
+        if(password.equals(confPassword)) {
+            if (passwordForm.getText().length() < 8) {
+                Toast.makeText(this, "A senhas deve ter no mínimo 8 dígitos", Toast.LENGTH_LONG).show();
+                passwordForm.setHint("A senhas deve ter no mínimo 8 dígitos");
+                return false;
+            }
+            fillData();
+            return true;
+        }else{
             Toast.makeText(this, "As senhas não corespondem", Toast.LENGTH_LONG).show();
             confpasswordForm.setHint("As senhas não corespondem");
             confpasswordForm.setBackgroundColor(Color.red(1));
             return false;
-        } else if (passwordForm.getText().length() < 8) {
-            Toast.makeText(this, "A senhas deve ter no mínimo 8 dígitos", Toast.LENGTH_LONG).show();
-            passwordForm.setHint("A senhas deve ter no mínimo 8 dígitos");
-            return false;
         }
-
-        fillData();
-        return true;
     }
 
 

@@ -117,22 +117,29 @@ public class FormNewStorageActivity extends AppCompatActivity {
     }
 
     private Estoque fillStorage() {
-        Usuario usuario = mUsuarioViewModel.getByid(Long.valueOf((String) administratorId.get(administrator.indexOf(administratorSpinner.getSelectedItem()))));
+        Long idUser = Long.valueOf((Long) administratorId.get(administrator.indexOf(administratorSpinner.getSelectedItem())));
+        Usuario usuario = mUsuarioViewModel.getByid(idUser);
         Administrador administrador = new Administrador(usuario.getNome(), usuario.getSenha(), usuario.getEmail());
-        storage.setNome(nameForm.getText().toString());
-        storage.setDescricao(descriptionForm.getText().toString());
-        storage.setLocalizacao(mLocalizacaoViewModel.getByid(Long.valueOf((String) localizacaoId.get(localizacao.indexOf(locationsSpinner.getSelectedItem())))));
         storage.setAdministrador(administrador);
 
-        localizacaoId.get(localizacao.indexOf(locationsSpinner.getSelectedItem()));
+        Long idLoc = Long.valueOf((Long) localizacaoId.get(localizacao.indexOf(locationsSpinner.getSelectedItem())));
+        Localizacao localizacaoStorage = mLocalizacaoViewModel.getByid(idLoc);
+        storage.setLocalizacao(localizacaoStorage);
+
+        storage.setNome(nameForm.getText().toString());
+        storage.setDescricao(descriptionForm.getText().toString());
+
         return storage;
     }
 
     private void handleSave() {
+        fillStorage();
+        System.out.println(storage.toString());
+
         if (storage.hasValidId()) {
-            estoqueViewModel.edit(fillStorage());
+            estoqueViewModel.edit(storage);
         } else {
-            estoqueViewModel.insert(fillStorage());
+            estoqueViewModel.insert(storage);
         }
         finish();
     }

@@ -58,6 +58,15 @@ public class Localizacao implements Serializable {
         this.descricao = descricao;
     }
 
+    @Override
+    public String toString() {
+        return "Localizacao{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", descricao='" + descricao + '\'' +
+                '}';
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     public boolean hasValidId() {
         return nonNull(id) && id > 0;
