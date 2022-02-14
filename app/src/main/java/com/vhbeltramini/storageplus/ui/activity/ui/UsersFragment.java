@@ -2,7 +2,6 @@ package com.vhbeltramini.storageplus.ui.activity.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,9 +24,8 @@ import com.vhbeltramini.storageplus.ui.adapter.holders.UsuarioHolderView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Objects;
 
-import static com.vhbeltramini.storageplus.ui.activity.DataConstants.USUARIO_KEY;
+import static com.vhbeltramini.storageplus.ui.activity.DataConstants.USER_KEY;
 
 public class UsersFragment extends Fragment implements UsuarioHolderView.OnUserListener {
 
@@ -80,7 +78,7 @@ public class UsersFragment extends Fragment implements UsuarioHolderView.OnUserL
     @Override
     public void onUserClick(int position) {
         Intent goToUserForm = new Intent(getActivity(), FormNewUserActivity.class);
-        goToUserForm.putExtra(USUARIO_KEY, (Serializable) usuarios.get(position));
+        goToUserForm.putExtra(USER_KEY, (Serializable) usuarios.get(position));
         startActivity(goToUserForm);
     }
 }

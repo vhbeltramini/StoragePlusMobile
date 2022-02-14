@@ -15,6 +15,9 @@
     <string name="locations">Localizações</string>
     <string name="users">Usuários</string>
     <string name="categories">Categorias</string>
+    <string name="category">Categoria</string>
+    <string name="quantityInStock">Quantidade em Estoque</string>
+    <string name="minQuantityInStock">Quantidade mínima em Estoque</string>
     <string name="preferences">Preferência</string>
     <string name="user">Perfil</string>
     <string name="company">Empresa</string>

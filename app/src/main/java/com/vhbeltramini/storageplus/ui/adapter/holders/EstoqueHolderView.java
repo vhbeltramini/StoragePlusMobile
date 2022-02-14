@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vhbeltramini.storageplus.R;
 
-public class EstoqueHolderView extends RecyclerView.ViewHolder {
+public class EstoqueHolderView extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private final TextView storageNameItemView;
     private final TextView storageDescriptionItemView;
-
+    OnEstoqueListner onUserListener;
 
     public EstoqueHolderView(@NonNull View itemView) {
         super(itemView);
@@ -31,6 +31,15 @@ public class EstoqueHolderView extends RecyclerView.ViewHolder {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.simplified_item_list, parent, false);
         return new EstoqueHolderView(view);
+    }
+
+    @Override
+    public void onClick(View v) {
+        onUserListener.onEstoqueClick(getAdapterPosition());
+    }
+
+    public interface OnEstoqueListner {
+        void onEstoqueClick(int position);
     }
 
 }

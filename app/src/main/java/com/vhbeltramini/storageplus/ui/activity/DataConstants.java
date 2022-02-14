@@ -3,9 +3,10 @@ package com.vhbeltramini.storageplus.ui.activity;
 public interface DataConstants {
 
     String STORAGE_KEY = "storage";
-    String LOCALIZACAO_KEY = "localizacao";
-    String USUARIO_KEY = "usuario";
-    String CATEGORIA_KEY = "categoria";
+    String LOCATION_KEY = "location";
+    String USER_KEY = "user";
+    String CATEGORY_KEY = "category";
+    String PRODUCT_KEY = "product";
 
 
 }

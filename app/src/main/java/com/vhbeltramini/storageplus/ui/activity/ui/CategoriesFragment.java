@@ -18,26 +18,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.vhbeltramini.storageplus.R;
 import com.vhbeltramini.storageplus.model.Categoria;
-import com.vhbeltramini.storageplus.model.Usuario;
 import com.vhbeltramini.storageplus.model.viewModel.CategoriaViewModel;
-import com.vhbeltramini.storageplus.model.viewModel.UsuarioViewModel;
-import com.vhbeltramini.storageplus.ui.adapter.ListCategoriasAdapter;
-import com.vhbeltramini.storageplus.ui.adapter.ListUsuarioAdapter;
+import com.vhbeltramini.storageplus.ui.adapter.ListCategoriaAdapter;
 import com.vhbeltramini.storageplus.ui.adapter.holders.CategoriaHolderView;
-import com.vhbeltramini.storageplus.ui.adapter.holders.UsuarioHolderView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import static com.vhbeltramini.storageplus.ui.activity.DataConstants.CATEGORIA_KEY;
-import static com.vhbeltramini.storageplus.ui.activity.DataConstants.USUARIO_KEY;
+import static com.vhbeltramini.storageplus.ui.activity.DataConstants.CATEGORY_KEY;
 
 public class CategoriesFragment extends Fragment implements CategoriaHolderView.OnCategoriaListener {
 
 
     RecyclerView mRecyclerView;
     ArrayList<Categoria> categorias;
-    ListCategoriasAdapter mAdapter;
+    ListCategoriaAdapter mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
 
     @Nullable
@@ -52,7 +47,7 @@ public class CategoriesFragment extends Fragment implements CategoriaHolderView.
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        mAdapter = new ListCategoriasAdapter(new ListCategoriasAdapter.CategoriaDiff(), this);
+        mAdapter = new ListCategoriaAdapter(new ListCategoriaAdapter.CategoriaDiff(), this);
         mRecyclerView.setAdapter(mAdapter);
         CategoriaViewModel viewModel = new ViewModelProvider(this).get(CategoriaViewModel.class);
 
@@ -83,7 +78,7 @@ public class CategoriesFragment extends Fragment implements CategoriaHolderView.
     @Override
     public void onCategoriaClick(int position) {
         Intent goToUserForm = new Intent(getActivity(), FormNewCategoryActivity.class);
-        goToUserForm.putExtra(CATEGORIA_KEY, (Serializable) categorias.get(position));
+        goToUserForm.putExtra(CATEGORY_KEY, (Serializable) categorias.get(position));
         startActivity(goToUserForm);
     }
 }

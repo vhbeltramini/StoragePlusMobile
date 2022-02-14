@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +25,7 @@ import com.vhbeltramini.storageplus.model.viewModel.UsuarioViewModel;
 import com.vhbeltramini.storageplus.repository.AES;
 import com.vhbeltramini.storageplus.ui.activity.DataConstants;
 
-import static com.vhbeltramini.storageplus.ui.activity.DataConstants.USUARIO_KEY;
+import static com.vhbeltramini.storageplus.ui.activity.DataConstants.USER_KEY;
 
 public class FormNewUserActivity extends AppCompatActivity {
 
@@ -152,8 +151,8 @@ public class FormNewUserActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void handleFormData() {
         Intent data = getIntent();
-        if (data.hasExtra(USUARIO_KEY)) {
-            ususario = (Usuario) data.getSerializableExtra(DataConstants.USUARIO_KEY);
+        if (data.hasExtra(USER_KEY)) {
+            ususario = (Usuario) data.getSerializableExtra(DataConstants.USER_KEY);
             nameForm.setText(ususario.getNome());
             emailForm.setText(ususario.getEmail());
             passwordForm.setText(AES.decrypt(ususario.getSenha()));

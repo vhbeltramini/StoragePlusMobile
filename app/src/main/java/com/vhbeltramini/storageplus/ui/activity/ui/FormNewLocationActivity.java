@@ -20,7 +20,7 @@ import com.vhbeltramini.storageplus.R;
 import com.vhbeltramini.storageplus.model.Localizacao;
 import com.vhbeltramini.storageplus.model.viewModel.LocalizacaoViewModel;
 
-import static com.vhbeltramini.storageplus.ui.activity.DataConstants.LOCALIZACAO_KEY;
+import static com.vhbeltramini.storageplus.ui.activity.DataConstants.LOCATION_KEY;
 
 public class FormNewLocationActivity extends AppCompatActivity {
 
@@ -114,8 +114,8 @@ public class FormNewLocationActivity extends AppCompatActivity {
 
     private void handleFormData() {
         Intent data = getIntent();
-        if (data.hasExtra(LOCALIZACAO_KEY)) {
-            localizacao = (Localizacao) data.getSerializableExtra(LOCALIZACAO_KEY);
+        if (data.hasExtra(LOCATION_KEY)) {
+            localizacao = (Localizacao) data.getSerializableExtra(LOCATION_KEY);
             nameForm.setText(localizacao.getNome());
             descriptionForm.setText(localizacao.getDescricao());
             formTitle.setText(EDIT_LOCATION_TITLE);

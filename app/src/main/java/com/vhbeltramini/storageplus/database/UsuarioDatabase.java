@@ -45,10 +45,8 @@ public abstract class UsuarioDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> {
                 UsuarioDao dao = INSTANCE.usuarioDao();
 
-                if (dao.getAll() == null) {
-                    dao.insert(new Usuario("Victor Hugo", "12345678", "vhbeltramini@gmail.com", true));
-                    dao.insert(new Usuario("Bruce", "12345678", "bruce@gmail.com", true));
-                }
+                dao.insert(new Usuario("Victor Hugo", "12345678", "vhbeltramini@gmail.com", true));
+                dao.insert(new Usuario("Bruce", "12345678", "bruce@gmail.com", true));
 
 
                 Log.i("usuariosssssssssss", dao.getAll().toString());

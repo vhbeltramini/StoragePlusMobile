@@ -41,6 +41,9 @@
         <activity
             android:name=".ui.activity.ui.FormNewCategoryActivity"
             android:exported="true" />
+        <activity
+            android:name=".ui.activity.ui.ListProductsActivity"
+            android:exported="true" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

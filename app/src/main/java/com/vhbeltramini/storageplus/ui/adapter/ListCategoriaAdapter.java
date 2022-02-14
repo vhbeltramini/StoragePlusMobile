@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.ListAdapter;
 import com.vhbeltramini.storageplus.model.Categoria;
 import com.vhbeltramini.storageplus.ui.adapter.holders.CategoriaHolderView;
 
-public class ListCategoriasAdapter extends ListAdapter<Categoria, CategoriaHolderView> {
+public class ListCategoriaAdapter extends ListAdapter<Categoria, CategoriaHolderView> {
 
     private CategoriaHolderView.OnCategoriaListener mOnCategoriaListener;
 
-    public ListCategoriasAdapter(@NonNull DiffUtil.ItemCallback<Categoria> diffCallback, CategoriaHolderView.OnCategoriaListener onCategoriaListener) {
+    public ListCategoriaAdapter(@NonNull DiffUtil.ItemCallback<Categoria> diffCallback, CategoriaHolderView.OnCategoriaListener onCategoriaListener) {
         super(diffCallback);
         this.mOnCategoriaListener = onCategoriaListener;
     }

@@ -25,7 +25,7 @@ import com.vhbeltramini.storageplus.ui.adapter.holders.LocalizacaoHolderView;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import static com.vhbeltramini.storageplus.ui.activity.DataConstants.LOCALIZACAO_KEY;
+import static com.vhbeltramini.storageplus.ui.activity.DataConstants.LOCATION_KEY;
 
 public class LocationsFragment extends Fragment implements LocalizacaoHolderView.OnLocalizacaoListener {
 
@@ -76,7 +76,7 @@ public class LocationsFragment extends Fragment implements LocalizacaoHolderView
     @Override
     public void onLocalizacaoClick(int position) {
         Intent goToForm = new Intent(getActivity(), FormNewLocationActivity.class);
-        goToForm.putExtra(LOCALIZACAO_KEY, (Serializable) localizacoes.get(position));
+        goToForm.putExtra(LOCATION_KEY, (Serializable) localizacoes.get(position));
         startActivity(goToForm);
     }
 }

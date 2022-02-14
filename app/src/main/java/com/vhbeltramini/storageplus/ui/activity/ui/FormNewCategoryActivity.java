@@ -19,11 +19,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.vhbeltramini.storageplus.R;
 import com.vhbeltramini.storageplus.model.Categoria;
-import com.vhbeltramini.storageplus.model.Localizacao;
 import com.vhbeltramini.storageplus.model.viewModel.CategoriaViewModel;
 
-import static com.vhbeltramini.storageplus.ui.activity.DataConstants.CATEGORIA_KEY;
-import static com.vhbeltramini.storageplus.ui.activity.DataConstants.LOCALIZACAO_KEY;
+import static com.vhbeltramini.storageplus.ui.activity.DataConstants.CATEGORY_KEY;
 
 public class FormNewCategoryActivity extends AppCompatActivity {
 
@@ -117,8 +115,8 @@ public class FormNewCategoryActivity extends AppCompatActivity {
 
     private void handleFormData() {
         Intent data = getIntent();
-        if (data.hasExtra(CATEGORIA_KEY)) {
-            categoria = (Categoria) data.getSerializableExtra(CATEGORIA_KEY);
+        if (data.hasExtra(CATEGORY_KEY)) {
+            categoria = (Categoria) data.getSerializableExtra(CATEGORY_KEY);
             nameForm.setText(categoria.getNome());
             descriptionForm.setText(categoria.getDescricao());
             deleteButton.setVisibility(View.VISIBLE);

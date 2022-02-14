@@ -16,7 +16,6 @@ public class UsuarioHolderView extends RecyclerView.ViewHolder implements View.O
     private final TextView descriptionItemView;
     OnUserListener onUserListener;
 
-
     public UsuarioHolderView(@NonNull View itemView, OnUserListener onUserListener) {
         super(itemView);
         nameItemView = itemView.findViewById(R.id.item_name);
