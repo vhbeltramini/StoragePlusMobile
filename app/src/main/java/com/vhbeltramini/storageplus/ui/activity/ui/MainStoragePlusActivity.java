@@ -38,11 +38,13 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
+import static java.util.Objects.isNull;
+
 public class MainStoragePlusActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
-    TextView name, id, email;
-    ImageView profileImage;
+    TextView nameMenuField, id, emailMenuField;
+    ImageView profileImageMenu;
     GoogleSignInClient mGoogleSignInClient;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -88,30 +90,32 @@ public class MainStoragePlusActivity extends AppCompatActivity implements Naviga
 
         View headerLayout = navigationView.getHeaderView(0);
 
-        name = headerLayout.findViewById(R.id.navigation_header_container_name);
-        profileImage = headerLayout.findViewById(R.id.navigation_header_container_photo);
-        email = headerLayout.findViewById(R.id.navigation_header_container_email);
-
-
+        nameMenuField = headerLayout.findViewById(R.id.navigation_header_container_name);
+        profileImageMenu = headerLayout.findViewById(R.id.navigation_header_container_photo);
+        emailMenuField = headerLayout.findViewById(R.id.navigation_header_container_email);
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
-            UsuarioViewModel viewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
 
+            UsuarioViewModel viewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
 
             String personName = acct.getDisplayName();
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
-            viewModel.insert(new Usuario(personName, AES.encrypt(personId), acct.getEmail()));
+            String email = acct.getEmail();
 
-            name.setText(personName);
-            email.setText(acct.getEmail());
+            if (isNull(viewModel.getByEmail(email))) {
+                viewModel.insert(new Usuario(personName, AES.encrypt(personId.concat(personName.substring(0,3))), email, true));
+            }
+
+            nameMenuField.setText(personName);
+            emailMenuField.setText(acct.getEmail());
             Glide
                 .with(this)
                 .load(String.valueOf(personPhoto))
                 .apply(new RequestOptions().override(200, 200))
                 .centerCrop()
-                .into(profileImage);
+                .into(profileImageMenu);
         }
     }
 
@@ -130,6 +134,10 @@ public class MainStoragePlusActivity extends AppCompatActivity implements Naviga
             case R.id.nav_users:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new UsersFragment()).commit();
+            break;
+            case R.id.nav_categories:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new CategoriesFragment()).commit();
             break;
         }
 

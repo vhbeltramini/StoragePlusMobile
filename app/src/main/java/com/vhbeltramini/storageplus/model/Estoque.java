@@ -1,5 +1,8 @@
 package com.vhbeltramini.storageplus.model;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
@@ -8,12 +11,14 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
+import static java.util.Objects.nonNull;
+
 @Entity(tableName = "tbestoque")
 public class Estoque implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    private int id;
+    private Long id;
 
     @ColumnInfo(name = "nome")
     private String nome;
@@ -24,23 +29,25 @@ public class Estoque implements Serializable {
     @Embedded(prefix = "tblocalizacao")
     private Localizacao localizacao;
 
-    @Embedded(prefix = "tbadministrador")
-    private Administrador administrador;
+    @Embedded(prefix = "tbusuario")
+    private Usuario usuario;
 
     @Ignore
-    public Estoque(String nome, String descricao) {
+    public Estoque(String nome, String descricao, Localizacao localizacao, Usuario usuario) {
         this.nome = nome;
         this.descricao = descricao;
+        this.localizacao = localizacao;
+        this.usuario = usuario;
     }
 
     public Estoque() {
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -68,12 +75,12 @@ public class Estoque implements Serializable {
         this.localizacao = localizacao;
     }
 
-    public Administrador getAdministrador() {
-        return administrador;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setAdministrador(Administrador administrador) {
-        this.administrador = administrador;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @java.lang.Override
@@ -83,11 +90,12 @@ public class Estoque implements Serializable {
                 ", nome='" + nome + '\'' +
                 ", descricao='" + descricao + '\'' +
                 ", localizacao=" + localizacao +
-                ", administrador=" + administrador.toString() +
+                ", administrador=" + usuario.toString() +
                 '}';
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public boolean hasValidId() {
-        return id > 0;
+        return nonNull(id) && id > 0;
     }
 }

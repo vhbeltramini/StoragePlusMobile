@@ -20,14 +20,14 @@ import com.vhbeltramini.storageplus.R;
 import com.vhbeltramini.storageplus.model.Localizacao;
 import com.vhbeltramini.storageplus.model.viewModel.LocalizacaoViewModel;
 import com.vhbeltramini.storageplus.ui.adapter.ListLocalizacaoAdapter;
-import com.vhbeltramini.storageplus.ui.adapter.holders.UsuarioHolderView;
+import com.vhbeltramini.storageplus.ui.adapter.holders.LocalizacaoHolderView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 import static com.vhbeltramini.storageplus.ui.activity.DataConstants.LOCALIZACAO_KEY;
 
-public class LocationsFragment extends Fragment implements UsuarioHolderView.OnUserListener {
+public class LocationsFragment extends Fragment implements LocalizacaoHolderView.OnLocalizacaoListener {
 
     RecyclerView mRecyclerView;
     ArrayList<Localizacao> localizacoes;
@@ -46,7 +46,7 @@ public class LocationsFragment extends Fragment implements UsuarioHolderView.OnU
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        mAdapter = new ListLocalizacaoAdapter(new ListLocalizacaoAdapter.LocalizacaoDiff(), this::onUserClick);
+        mAdapter = new ListLocalizacaoAdapter(new ListLocalizacaoAdapter.LocalizacaoDiff(), this);
         mRecyclerView.setAdapter(mAdapter);
         LocalizacaoViewModel viewModel = new ViewModelProvider(this).get(LocalizacaoViewModel.class);
 
@@ -74,7 +74,7 @@ public class LocationsFragment extends Fragment implements UsuarioHolderView.OnU
 
 
     @Override
-    public void onUserClick(int position) {
+    public void onLocalizacaoClick(int position) {
         Intent goToForm = new Intent(getActivity(), FormNewLocationActivity.class);
         goToForm.putExtra(LOCALIZACAO_KEY, (Serializable) localizacoes.get(position));
         startActivity(goToForm);

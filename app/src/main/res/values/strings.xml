@@ -14,6 +14,7 @@
     <string name="storage">Estoques</string>
     <string name="locations">Localizações</string>
     <string name="users">Usuários</string>
+    <string name="categories">Categorias</string>
     <string name="preferences">Preferência</string>
     <string name="user">Perfil</string>
     <string name="company">Empresa</string>
@@ -21,6 +22,7 @@
     <string name="delete">Excluir</string>
     <string name="description">Descrição</string>
     <string name="adress">Endereço</string>
+    <string name="admin">Administrador</string>
     <string name="email">E-Mail</string>
     <string name="password">Senha</string>
     <string name="confirme_password">Confirmar senha</string>

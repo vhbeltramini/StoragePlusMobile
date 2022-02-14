@@ -13,7 +13,7 @@ import com.vhbeltramini.storageplus.model.Categoria;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Categoria.class}, version = 1)
+@Database(entities = {Categoria.class}, version = 3)
 public abstract class CategoriaDatabase extends RoomDatabase {
 
     public abstract CategoriaDao categoriaDao();
@@ -27,7 +27,9 @@ public abstract class CategoriaDatabase extends RoomDatabase {
     public static synchronized CategoriaDatabase getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(), CategoriaDatabase.class, DB_NAME)
-                    .allowMainThreadQueries().fallbackToDestructiveMigration().build();
+                    .allowMainThreadQueries()
+                    .fallbackToDestructiveMigration()
+                    .build();
         }
         return instance;
     }

@@ -1,5 +1,6 @@
 package com.vhbeltramini.storageplus.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -15,7 +16,10 @@ import java.util.List;
 public interface CategoriaDao {
 
     @Query("SELECT * FROM tbcategoria")
-    List<Categoria> getAll();
+    LiveData<List<Categoria>> getAll();
+
+    @Query("SELECT * FROM tbcategoria where id=:id")
+    Categoria getById(Long id);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Categoria categoria);

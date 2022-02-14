@@ -28,11 +28,24 @@ public class Usuario implements Serializable {
     @ColumnInfo(name = "email")
     protected String email;
 
+    @ColumnInfo(name = "isAdmin")
+    private Boolean isAdmin;
+
     @Ignore
-    public Usuario(String nome, String senha, String email) {
+    public Usuario(Long id, String nome, String senha, String email, Boolean isAdmin) {
+        this.id = id;
         this.nome = nome;
         this.senha = senha;
         this.email = email;
+        this.isAdmin = isAdmin;
+    }
+
+    @Ignore
+    public Usuario(String nome, String senha, String email, Boolean isAdmin) {
+        this.nome = nome;
+        this.senha = senha;
+        this.email = email;
+        this.isAdmin = isAdmin;
     }
 
     public Usuario() {
@@ -58,6 +71,10 @@ public class Usuario implements Serializable {
         return email;
     }
 
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -70,13 +87,18 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
     @Override
-    public java.lang.String toString() {
+    public String toString() {
         return "Usuario{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", senha='" + senha + '\'' +
                 ", email='" + email + '\'' +
+                ", isAdmin=" + isAdmin +
                 '}';
     }
 

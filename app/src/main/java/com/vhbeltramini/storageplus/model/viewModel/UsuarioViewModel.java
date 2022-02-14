@@ -27,8 +27,16 @@ public class UsuarioViewModel extends AndroidViewModel {
         return mAll;
     }
 
+    public LiveData<List<Usuario>> getAllAdminUsers() {
+        return mRepository.getAllAdminUsers();
+    }
+
     public Usuario getByid(Long id) {
         return mRepository.getByid(id);
+    }
+
+    public Usuario getByEmail(String email) {
+        return mRepository.getByEmail(email);
     }
 
     public void insert(Usuario entity) {

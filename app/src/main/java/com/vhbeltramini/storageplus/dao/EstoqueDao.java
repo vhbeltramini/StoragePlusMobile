@@ -9,6 +9,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.vhbeltramini.storageplus.model.Estoque;
+import com.vhbeltramini.storageplus.model.Usuario;
 
 import java.util.List;
 

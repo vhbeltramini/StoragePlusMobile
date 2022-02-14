@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ import com.vhbeltramini.storageplus.R;
 import com.vhbeltramini.storageplus.model.Usuario;
 import com.vhbeltramini.storageplus.model.viewModel.UsuarioViewModel;
 import com.vhbeltramini.storageplus.repository.AES;
+import com.vhbeltramini.storageplus.ui.activity.DataConstants;
 
 import static com.vhbeltramini.storageplus.ui.activity.DataConstants.USUARIO_KEY;
 
@@ -34,6 +36,7 @@ public class FormNewUserActivity extends AppCompatActivity {
     private TextView formTitle;
     private Button deleteButton;
     private EditText nameForm, emailForm, passwordForm, confpasswordForm;
+    private CheckBox isAdminForm;
     private Usuario ususario;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -57,6 +60,7 @@ public class FormNewUserActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         handleSaveButton();
@@ -69,17 +73,21 @@ public class FormNewUserActivity extends AppCompatActivity {
         emailForm = findViewById(R.id.activity_form_user_email);
         passwordForm = findViewById(R.id.activity_form_user_password);
         confpasswordForm = findViewById(R.id.activity_form_user_password_confirm);
+        isAdminForm = findViewById(R.id.activity_form_user_admin_checkbox);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private Usuario fillData() {
 
         ususario.setNome(nameForm.getText().toString());
         ususario.setEmail(emailForm.getText().toString());
-        ususario.setSenha(passwordForm.getText().toString());
+        ususario.setSenha(AES.encrypt(passwordForm.getText().toString()));
+        ususario.setIsAdmin(isAdminForm.isChecked());
 
         return ususario;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void handleSaveButton() {
         Button saveButton = findViewById(R.id.activity_form_user_save_button);
         saveButton.setOnClickListener(v -> {
@@ -90,6 +98,7 @@ public class FormNewUserActivity extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void handleSave() {
         if (!handleData()) {
             return;
@@ -103,6 +112,7 @@ public class FormNewUserActivity extends AppCompatActivity {
         finish();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private Boolean handleData() {
         String password = passwordForm.getText().toString();
         String confPassword = confpasswordForm.getText().toString();
@@ -123,6 +133,7 @@ public class FormNewUserActivity extends AppCompatActivity {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void handleDelete() {
         if (ususario.hasValidId()) {
             new AlertDialog
@@ -142,11 +153,12 @@ public class FormNewUserActivity extends AppCompatActivity {
     private void handleFormData() {
         Intent data = getIntent();
         if (data.hasExtra(USUARIO_KEY)) {
-            ususario = (Usuario) data.getSerializableExtra(USUARIO_KEY);
+            ususario = (Usuario) data.getSerializableExtra(DataConstants.USUARIO_KEY);
             nameForm.setText(ususario.getNome());
             emailForm.setText(ususario.getEmail());
             passwordForm.setText(AES.decrypt(ususario.getSenha()));
             confpasswordForm.setText(AES.decrypt(ususario.getSenha()));
+            isAdminForm.setSelected(ususario.getIsAdmin());
             formTitle.setText(EDIT_USER_TITLE);
             deleteButton.setVisibility(View.VISIBLE);
         } else {

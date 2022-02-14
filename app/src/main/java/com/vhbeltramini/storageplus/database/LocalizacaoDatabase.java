@@ -13,7 +13,7 @@ import com.vhbeltramini.storageplus.model.Localizacao;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Localizacao.class}, version = 2)
+@Database(entities = {Localizacao.class}, version = 1)
 public abstract class LocalizacaoDatabase extends RoomDatabase {
 
     public abstract LocalizacaoDao localizacaoDao();
