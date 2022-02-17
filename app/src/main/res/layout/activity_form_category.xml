@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context=".ui.activity.FormNewStudentActivity">
+        tools:context=".ui.activity.ui.FormNewCategoryActivity">
 
-        <TextView android:id="@+id/activity_form_storage_title"
+        <TextView android:id="@+id/activity_form_category_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
@@ -22,53 +22,35 @@
             android:layout_margin="8dp"
             tools:text="name" />
 
-        <EditText
-            android:id="@+id/activity_form_storage_name"
+        <EditText android:id="@+id/activity_form_category_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
             android:hint="@string/name"
-            android:inputType="textCapWords" />
+            android:autofillHints="" />
 
-        <EditText android:id="@+id/activity_form_storage_description"
+        <EditText android:id="@+id/activity_form_category_description"
             android:layout_width="match_parent"
             android:layout_margin="8dp"
             android:inputType="textCapSentences"
             android:layout_height="wrap_content"
             android:hint="@string/description"
+            android:autofillHints=""
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/localizacao"
-            android:layout_marginStart="11dp"
-            />
-        <Spinner
-            android:id="@+id/activity_form_storage_spinner_locations"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:layout_margin="8dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/responsavel"
-            android:layout_marginStart="11dp"
-            />
-        <Spinner
-            android:id="@+id/activity_form_storage_spinner_administrator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:layout_margin="8dp" />
-
-        <Button android:id="@+id/activity_form_storage_save_button"
+        <Button android:id="@+id/activity_form_category_save_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="@string/save"
+            android:orientation="vertical" />
+
+        <Button android:id="@+id/activity_form_category_delete_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/delete"
             android:orientation="vertical" />
 
 

@@ -8,17 +8,21 @@ import androidx.recyclerview.widget.ListAdapter;
 
 import com.vhbeltramini.storageplus.model.Estoque;
 import com.vhbeltramini.storageplus.ui.adapter.holders.EstoqueHolderView;
+import com.vhbeltramini.storageplus.ui.adapter.holders.LocalizacaoHolderView;
 
 public class ListEstoqueAdapter extends ListAdapter<Estoque, EstoqueHolderView> {
 
-    public ListEstoqueAdapter(@NonNull DiffUtil.ItemCallback<Estoque> diffCallback) {
+    private EstoqueHolderView.OnStorageListner mOnStorageListner;
+
+    public ListEstoqueAdapter(@NonNull DiffUtil.ItemCallback<Estoque> diffCallback, EstoqueHolderView.OnStorageListner mOnStorageListner) {
         super(diffCallback);
+        this.mOnStorageListner = mOnStorageListner;
     }
 
     @NonNull
     @Override
     public EstoqueHolderView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return EstoqueHolderView.create(parent);
+        return EstoqueHolderView.create(parent, mOnStorageListner);
     }
 
     @Override

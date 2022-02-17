@@ -3,7 +3,6 @@ package com.vhbeltramini.storageplus.ui.activity.ui;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,22 +12,31 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.vhbeltramini.storageplus.R;
+import com.vhbeltramini.storageplus.model.Estoque;
 import com.vhbeltramini.storageplus.model.Produto;
 import com.vhbeltramini.storageplus.model.viewModel.ProdutoViewModel;
 import com.vhbeltramini.storageplus.ui.adapter.ListProdutoAdapter;
+import com.vhbeltramini.storageplus.ui.adapter.holders.ProdutoHolderView;
 
 import java.util.ArrayList;
 
-public class ListProductsActivity extends AppCompatActivity {
+import static com.vhbeltramini.storageplus.ui.activity.DataConstants.PRODUCT_KEY;
+import static com.vhbeltramini.storageplus.ui.activity.DataConstants.STORAGE_KEY;
+
+public class ListProductsActivity extends AppCompatActivity implements ProdutoHolderView.OnProdutoListner{
 
     private ProdutoViewModel productsViewModel;
     private ListProdutoAdapter adapter;
+    private Intent data;
     ArrayList<Produto> produtos;
     ListProdutoAdapter mAdapter;
+    RecyclerView.LayoutManager mLayoutManager;
     RecyclerView mRecyclerView;
 
     @SuppressLint("ClickableViewAccessibility")
@@ -38,8 +46,6 @@ public class ListProductsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_products);
 
         mRecyclerView = findViewById(R.id.activity_list_products_recycler_view);
-        final ListProdutoAdapter adapter = new ListProdutoAdapter(new ListProdutoAdapter.ProdutosDiff());
-        mRecyclerView.setAdapter(adapter);
 
         openFormAddNewProduct();
 
@@ -47,19 +53,33 @@ public class ListProductsActivity extends AppCompatActivity {
     }
 
     private void handleSetDataOnRecyclerView() {
+
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
         productsViewModel = new ViewModelProvider(this).get(ProdutoViewModel.class);
 
-        mAdapter = new ListProdutoAdapter(new ListProdutoAdapter.ProdutosDiff());
+        mAdapter = new ListProdutoAdapter(new ListProdutoAdapter.ProdutosDiff(), this);
         mRecyclerView.setAdapter(mAdapter);
 
-        productsViewModel.getAll().observe(this, products -> {
+        data = getIntent();
 
-            produtos = (ArrayList<Produto>) products;
-            mAdapter.submitList(products);
+        if (data.hasExtra(STORAGE_KEY)) {
+            Estoque storage = (Estoque) data.getSerializableExtra(STORAGE_KEY);
+            productsViewModel.getByEstoqueId(storage.getId()).observe(this, products -> {
 
-            Log.e("Products", products.toString());
-        });
+                produtos = (ArrayList<Produto>) products;
+                mAdapter.submitList(products);
+            });
 
+        } else {
+            productsViewModel.getAll().observe(this, products -> {
+
+                produtos = (ArrayList<Produto>) products;
+                mAdapter.submitList(products);
+            });
+        }
     }
 
     @Override
@@ -90,7 +110,15 @@ public class ListProductsActivity extends AppCompatActivity {
 
     private void openFormAddNewProduct() {
         FloatingActionButton addButton = findViewById(R.id.activity_list_products_button_new_products);
-        addButton.setOnClickListener(v -> startActivity(new Intent(ListProductsActivity.this, FormNewProductActivity.class)));
+        addButton.setOnClickListener(v -> startActivity(new Intent(ListProductsActivity.this, FormNewProductActivity.class).putExtra(STORAGE_KEY, data.getSerializableExtra(STORAGE_KEY))));
+    }
+
+    @Override
+    public void onProdutoClick(int position) {
+        Intent goTo = new Intent(ListProductsActivity.this, FormNewProductActivity.class);
+        goTo.putExtra(PRODUCT_KEY, produtos.get(position));
+        goTo.putExtra(STORAGE_KEY, data.getSerializableExtra(STORAGE_KEY));
+        startActivity(goTo);
     }
 
 }

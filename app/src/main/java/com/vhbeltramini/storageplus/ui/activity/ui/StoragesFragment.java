@@ -18,17 +18,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.vhbeltramini.storageplus.R;
 import com.vhbeltramini.storageplus.model.Estoque;
-import com.vhbeltramini.storageplus.model.Usuario;
 import com.vhbeltramini.storageplus.model.viewModel.EstoqueViewModel;
 import com.vhbeltramini.storageplus.ui.adapter.ListEstoqueAdapter;
 import com.vhbeltramini.storageplus.ui.adapter.holders.EstoqueHolderView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import static com.vhbeltramini.storageplus.ui.activity.DataConstants.STORAGE_KEY;
 
-public class StoragesFragment extends Fragment implements EstoqueHolderView.OnEstoqueListner {
+public class StoragesFragment extends Fragment implements EstoqueHolderView.OnStorageListner {
 
 
     RecyclerView mRecyclerView;
@@ -50,7 +48,7 @@ public class StoragesFragment extends Fragment implements EstoqueHolderView.OnEs
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        mAdapter = new ListEstoqueAdapter(new ListEstoqueAdapter.StoragesDiff());
+        mAdapter = new ListEstoqueAdapter(new ListEstoqueAdapter.StoragesDiff(), this);
         mRecyclerView.setAdapter(mAdapter);
         estoqueViewModel = new ViewModelProvider(this).get(EstoqueViewModel.class);
 

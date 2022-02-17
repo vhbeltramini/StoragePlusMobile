@@ -37,7 +37,6 @@ public class FormNewStorageActivity extends AppCompatActivity {
     private EditText nameForm, descriptionForm;
     private Spinner locationsSpinner, userAdminSpinner;
     private Estoque storage;
-    private Button deleteButton;
     private LocalizacaoViewModel mLocalizacaoViewModel;
     private UsuarioViewModel mUsuarioViewModel;
     private final ArrayList localizacao = new ArrayList<>();
@@ -51,7 +50,6 @@ public class FormNewStorageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_storage);
         formTitle = findViewById(R.id.activity_form_storage_title);
-        deleteButton = findViewById(R.id.activity_form_storage_delete_button);
         estoqueViewModel = new ViewModelProvider(this).get(EstoqueViewModel.class);
         startForm();
 
@@ -115,10 +113,10 @@ public class FormNewStorageActivity extends AppCompatActivity {
     }
 
     private Estoque fillStorage() {
-        Long idUser = Long.valueOf((Long) userId.get(user.indexOf(userAdminSpinner.getSelectedItem())));
+        Long idUser = (Long) userId.get(user.indexOf(userAdminSpinner.getSelectedItem()));
         storage.setUsuario(mUsuarioViewModel.getByid(idUser));
 
-        Long idLoc = Long.valueOf((Long) localizacaoId.get(localizacao.indexOf(locationsSpinner.getSelectedItem())));
+        Long idLoc = (Long) localizacaoId.get(localizacao.indexOf(locationsSpinner.getSelectedItem()));
         Localizacao localizacaoStorage = mLocalizacaoViewModel.getByid(idLoc);
         storage.setLocalizacao(localizacaoStorage);
 
@@ -131,7 +129,6 @@ public class FormNewStorageActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void handleSave() {
         fillStorage();
-        System.out.println(storage.toString());
 
         if (storage.hasValidId()) {
             estoqueViewModel.edit(storage);
@@ -145,9 +142,6 @@ public class FormNewStorageActivity extends AppCompatActivity {
     private void handleButtons() {
         Button saveButton = findViewById(R.id.activity_form_storage_save_button);
         saveButton.setOnClickListener(v -> {
-            handleSave();
-        });
-        deleteButton.setOnClickListener(v -> {
             handleSave();
         });
     }

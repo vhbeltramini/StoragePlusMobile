@@ -32,17 +32,16 @@ public class FormNewCategoryActivity extends AppCompatActivity {
     private TextView formTitle;
     private EditText nameForm;
     private EditText descriptionForm;
-    private Spinner storageSpinner;
     private Categoria categoria;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_form_location);
+        setContentView(R.layout.activity_form_category);
         viewModel = new ViewModelProvider(this).get(CategoriaViewModel.class);
-        formTitle = findViewById(R.id.activity_form_location_title);
-        deleteButton = findViewById(R.id.activity_form_location_delete_button);
+        formTitle = findViewById(R.id.activity_form_category_title);
+        deleteButton = findViewById(R.id.activity_form_category_delete_button);
 
         startForm();
         handleFormData();
@@ -64,8 +63,8 @@ public class FormNewCategoryActivity extends AppCompatActivity {
 
 
     private void startForm() {
-        nameForm = findViewById(R.id.activity_form_location_name);
-        descriptionForm = findViewById(R.id.activity_form_location_description);
+        nameForm = findViewById(R.id.activity_form_category_name);
+        descriptionForm = findViewById(R.id.activity_form_category_description);
     }
 
     private Categoria fillData() {
@@ -77,7 +76,7 @@ public class FormNewCategoryActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void handleButtons() {
-        Button saveButton = findViewById(R.id.activity_form_location_save_button);
+        Button saveButton = findViewById(R.id.activity_form_category_save_button);
         saveButton.setOnClickListener(v -> {
             handleSave();
         });
@@ -102,8 +101,8 @@ public class FormNewCategoryActivity extends AppCompatActivity {
         if (categoria.hasValidId()) {
             new AlertDialog
                     .Builder(this)
-                    .setTitle("Removendo Localização")
-                    .setMessage("Tem certeza que deseja deletar essa localização?")
+                    .setTitle("Removendo Categoria")
+                    .setMessage("Tem certeza que deseja deletar essa categoria?")
                     .setPositiveButton("Sim", (dialogInterface, i) -> {
                         viewModel.delete(fillData());
                         finish();

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,12 +75,6 @@ public class FormNewProductActivity extends AppCompatActivity {
         });
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.activity_form_save_menu, menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
-
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -106,6 +101,11 @@ public class FormNewProductActivity extends AppCompatActivity {
         product.setDescricao(descriptionForm.getText().toString());
         product.setQtdEstoque(Integer.parseInt(stockQuantityForm.getText().toString()));
         product.setQtdMinEstoque(Integer.parseInt(minStockQuantityForm.getText().toString()));
+
+        Intent data = getIntent();
+        if (data.hasExtra(STORAGE_KEY)) {
+            product.setEstoque((Estoque) data.getSerializableExtra(STORAGE_KEY));
+        }
 
         return product;
     }
@@ -137,13 +137,16 @@ public class FormNewProductActivity extends AppCompatActivity {
         Intent data = getIntent();
         if (data.hasExtra(PRODUCT_KEY)) {
             product = (Produto) data.getSerializableExtra(PRODUCT_KEY);
+            product.setEstoque((Estoque) data.getSerializableExtra(STORAGE_KEY));
             nameForm.setText(product.getNome());
             descriptionForm.setText(product.getDescricao());
-            minStockQuantityForm.setText(product.getQtdMinEstoque());
-            stockQuantityForm.setText(product.getQtdEstoque());
+            minStockQuantityForm.setText(String.valueOf(product.getQtdMinEstoque()));
+            stockQuantityForm.setText(String.valueOf(product.getQtdEstoque()));
+            deleteButton.setVisibility(View.VISIBLE);
             formTitle.setText(EDIT_PRODUCT_TITLE);
         } else {
             formTitle.setText(NEW_PRODUCT_TITLE);
+            deleteButton.setVisibility(View.INVISIBLE);
             product = new Produto();
         }
     }
@@ -154,20 +157,20 @@ public class FormNewProductActivity extends AppCompatActivity {
         Button increaseMinStockQuantityButton = findViewById(R.id.activity_form_product_increase_button_product_min_quantity_stock);
 
         decreaseMinStockQuantityButton.setOnClickListener(v -> {
-            minStockQuantityForm.setText(Integer.parseInt(minStockQuantityForm.toString()) - 1);
+            minStockQuantityForm.setText(String.valueOf(Integer.parseInt(minStockQuantityForm.getText().toString()) - 1));
         });
         increaseMinStockQuantityButton.setOnClickListener(v -> {
-            minStockQuantityForm.setText(Integer.parseInt(minStockQuantityForm.toString()) + 1);
+            minStockQuantityForm.setText(String.valueOf(Integer.parseInt(minStockQuantityForm.getText().toString()) + 1));
         });
 
         Button decreaseStockQuantityButton = findViewById(R.id.activity_form_product_decrease_button_product_quantity);
         Button increaseStockQuantityButton = findViewById(R.id.activity_form_product_increase_button_product_quantity);
 
         decreaseStockQuantityButton.setOnClickListener(v -> {
-            stockQuantityForm.setText(Integer.parseInt(stockQuantityForm.getText().toString()) - 1);
+            stockQuantityForm.setText(String.valueOf(Integer.parseInt(stockQuantityForm.getText().toString()) - 1));
         });
         increaseStockQuantityButton.setOnClickListener(v -> {
-            stockQuantityForm.setText(Integer.parseInt(stockQuantityForm.getText().toString()) + 1);
+            stockQuantityForm.setText(String.valueOf(Integer.parseInt(stockQuantityForm.getText().toString()) + 1));
         });
 
 

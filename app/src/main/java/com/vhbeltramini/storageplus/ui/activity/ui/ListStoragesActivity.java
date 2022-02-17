@@ -23,6 +23,7 @@ import com.vhbeltramini.storageplus.model.viewModel.EstoqueViewModel;
 import com.vhbeltramini.storageplus.model.viewModel.LocalizacaoViewModel;
 import com.vhbeltramini.storageplus.model.viewModel.UsuarioViewModel;
 import com.vhbeltramini.storageplus.ui.adapter.ListEstoqueAdapter;
+import com.vhbeltramini.storageplus.ui.adapter.holders.EstoqueHolderView;
 
 public class ListStoragesActivity extends AppCompatActivity {
 
@@ -36,7 +37,7 @@ public class ListStoragesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_storages);
 
         RecyclerView recyclerView = findViewById(R.id.activity_list_storages_recycler_view);
-        final ListEstoqueAdapter adapter = new ListEstoqueAdapter(new ListEstoqueAdapter.StoragesDiff());
+        final ListEstoqueAdapter adapter = new ListEstoqueAdapter(new ListEstoqueAdapter.StoragesDiff(), (EstoqueHolderView.OnStorageListner) this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

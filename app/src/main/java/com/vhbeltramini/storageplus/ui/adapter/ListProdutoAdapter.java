@@ -7,24 +7,28 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
 import com.vhbeltramini.storageplus.model.Produto;
+import com.vhbeltramini.storageplus.ui.adapter.holders.LocalizacaoHolderView;
 import com.vhbeltramini.storageplus.ui.adapter.holders.ProdutoHolderView;
 
 public class ListProdutoAdapter extends ListAdapter<Produto, ProdutoHolderView> {
 
-    public ListProdutoAdapter(@NonNull DiffUtil.ItemCallback<Produto> diffCallback) {
+    private ProdutoHolderView.OnProdutoListner mOnProdutoListner;
+
+    public ListProdutoAdapter(@NonNull DiffUtil.ItemCallback<Produto> diffCallback, ProdutoHolderView.OnProdutoListner mOnProdutoListner) {
         super(diffCallback);
+        this.mOnProdutoListner = mOnProdutoListner;
     }
 
     @NonNull
     @Override
     public ProdutoHolderView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return ProdutoHolderView.create(parent);
+        return ProdutoHolderView.create(parent, mOnProdutoListner);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProdutoHolderView holder, int position) {
         Produto current = getItem(position);
-        holder.bind(current.getNome(), current.getDescricao());
+        holder.bind(current.getNome(), current.getQtdMinEstoque(), current.getQtdEstoque());
     }
 
     public static class ProdutosDiff extends DiffUtil.ItemCallback<Produto> {

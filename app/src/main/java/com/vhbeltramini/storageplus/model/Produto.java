@@ -106,7 +106,7 @@ public class Produto implements Serializable {
         return qtdMinEstoque;
     }
 
-    public void setQtdMinEstoque(int qtdMinEstoque) {
+    public void setQtdMinEstoque(Integer qtdMinEstoque) {
         this.qtdMinEstoque = qtdMinEstoque;
     }
 

@@ -104,7 +104,11 @@ public class MainStoragePlusActivity extends AppCompatActivity implements Naviga
             Uri personPhoto = acct.getPhotoUrl();
             String email = acct.getEmail();
 
-            if (isNull(viewModel.getByEmail(email))) {
+            try {
+                if (isNull(viewModel.getByEmail(email))) {
+                    viewModel.insert(new Usuario(personName, AES.encrypt(personId.concat(personName.substring(0,3))), email, true));
+                }
+            } catch (Exception e) {
                 viewModel.insert(new Usuario(personName, AES.encrypt(personId.concat(personName.substring(0,3))), email, true));
             }
 

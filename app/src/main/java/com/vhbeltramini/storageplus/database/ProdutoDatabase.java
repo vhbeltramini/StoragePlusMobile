@@ -13,10 +13,11 @@ import com.vhbeltramini.storageplus.model.Produto;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Produto.class}, version = 1)
+@Database(entities = {Produto.class}, version = 2)
 public abstract class ProdutoDatabase extends RoomDatabase {
 
     public abstract ProdutoDao produtoDao();
+
     private static final String DB_NAME = "dbstorageplus";
     private static ProdutoDatabase INSTANCE;
 
