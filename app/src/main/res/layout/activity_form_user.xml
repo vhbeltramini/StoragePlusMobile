@@ -55,6 +55,12 @@
             android:hint="@string/confirme_password"
             />
 
+        <CheckBox android:id="@+id/activity_form_user_admin_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/admin"
+            android:layout_margin="8dp"/>
+
         <Button android:id="@+id/activity_form_user_save_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

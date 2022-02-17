@@ -21,6 +21,12 @@ public interface UsuarioDao {
     @Query("SELECT * FROM tbusuario where id=:id")
     Usuario getById(Long id);
 
+    @Query("SELECT * FROM tbusuario where email=:email")
+    Usuario getByEmail(String email);
+
+    @Query("SELECT * FROM tbusuario where isAdmin=1")
+    LiveData<List<Usuario>> getAllAdminUsers();
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Usuario usuario);
 

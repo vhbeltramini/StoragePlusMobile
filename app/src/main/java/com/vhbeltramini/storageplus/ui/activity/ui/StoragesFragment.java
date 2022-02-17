@@ -17,14 +17,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.vhbeltramini.storageplus.R;
+import com.vhbeltramini.storageplus.model.Estoque;
 import com.vhbeltramini.storageplus.model.viewModel.EstoqueViewModel;
 import com.vhbeltramini.storageplus.ui.adapter.ListEstoqueAdapter;
+import com.vhbeltramini.storageplus.ui.adapter.holders.EstoqueHolderView;
 
-public class StoragesFragment extends Fragment {
+import java.util.ArrayList;
+
+import static com.vhbeltramini.storageplus.ui.activity.DataConstants.STORAGE_KEY;
+
+public class StoragesFragment extends Fragment implements EstoqueHolderView.OnStorageListner {
 
 
     RecyclerView mRecyclerView;
     ListEstoqueAdapter mAdapter;
+    ArrayList<Estoque> estoques;
     RecyclerView.LayoutManager mLayoutManager;
     private EstoqueViewModel estoqueViewModel;
 
@@ -41,23 +48,19 @@ public class StoragesFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        mAdapter = new ListEstoqueAdapter(new ListEstoqueAdapter.StoragesDiff());
+        mAdapter = new ListEstoqueAdapter(new ListEstoqueAdapter.StoragesDiff(), this);
         mRecyclerView.setAdapter(mAdapter);
         estoqueViewModel = new ViewModelProvider(this).get(EstoqueViewModel.class);
 
         estoqueViewModel.getAll().observe(requireActivity(), storages -> {
+
+            estoques = (ArrayList<Estoque>) storages;
             mAdapter.submitList(storages);
 
             Log.e("Storagesssssssssss", storages.toString());
         });
 
         openFormAddNewStorage(rootView);
-
-//        Intent intent = new Intent(getActivity(), mFragmentFavorite.class);
-//        startActivity(intent);
-
-//        Intent goToForm = new Intent(getActivity(), ListStoragesActivity.class);
-//        startActivity(goToForm);
 
         return rootView;
     }
@@ -72,5 +75,10 @@ public class StoragesFragment extends Fragment {
         addStorageButton.setOnClickListener(v -> startActivity(new Intent(getActivity(), FormNewStorageActivity.class)));
     }
 
-
+    @Override
+    public void onEstoqueClick(int position) {
+        Intent goTo = new Intent(getActivity(), ListProductsActivity.class);
+        goTo.putExtra(STORAGE_KEY, estoques.get(position));
+        startActivity(goTo);
+    }
 }

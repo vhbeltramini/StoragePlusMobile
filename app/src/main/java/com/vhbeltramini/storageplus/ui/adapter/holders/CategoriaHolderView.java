@@ -10,38 +10,39 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vhbeltramini.storageplus.R;
 
-public class UsuarioHolderView extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class CategoriaHolderView extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private final TextView nameItemView;
     private final TextView descriptionItemView;
-    OnUserListener onUserListener;
+    OnCategoriaListener onCategoriaListener;
 
-    public UsuarioHolderView(@NonNull View itemView, OnUserListener onUserListener) {
+
+    public CategoriaHolderView(@NonNull View itemView, OnCategoriaListener onCategoriaListener) {
         super(itemView);
         nameItemView = itemView.findViewById(R.id.item_name);
         descriptionItemView = itemView.findViewById(R.id.item_description);
-        this.onUserListener = onUserListener;
+        this.onCategoriaListener = onCategoriaListener;
         itemView.setOnClickListener(this);
     }
 
     public void bind(String name, String description) {
         nameItemView.setText(name);
-        descriptionItemView.setText("Email: " + description);
+        descriptionItemView.setText("Descrição: " + description);
     }
 
-    public static UsuarioHolderView create(ViewGroup parent, OnUserListener onUserListener) {
+    public static CategoriaHolderView create(ViewGroup parent, OnCategoriaListener onCategoriaListener) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.simplified_item_list, parent, false);
-        return new UsuarioHolderView(view, onUserListener);
+        return new CategoriaHolderView(view, onCategoriaListener);
     }
 
     @Override
     public void onClick(View v) {
-        onUserListener.onUserClick(getAdapterPosition());
+        onCategoriaListener.onCategoriaClick(getAdapterPosition());
     }
 
-    public interface OnUserListener {
-        void onUserClick(int position);
+    public interface OnCategoriaListener {
+        void onCategoriaClick(int position);
     }
 
 }

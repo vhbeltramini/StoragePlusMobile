@@ -13,22 +13,19 @@
              android:name=".ui.activity.ui.StartLogInPageActivity"
              android:exported="true"
             >
-<!--             <intent-filter>-->
-<!--                 <action android:name="android.intent.action.MAIN" />-->
-<!--                 <category android:name="android.intent.category.LAUNCHER" />-->
-<!--             </intent-filter>-->
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
          </activity>
         <activity
             android:name=".ui.activity.ui.MainStoragePlusActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ui.activity.ui.InitialSystemPage"
-            android:exported="true" />
+            android:exported="true">
+        </activity>
         <activity
             android:name=".ui.activity.ui.FormNewUserActivity"
             android:exported="true" />
@@ -40,6 +37,15 @@
             android:exported="true" />
         <activity
             android:name=".ui.activity.ui.FormNewLocationActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.activity.ui.FormNewCategoryActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.activity.ui.ListProductsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.activity.ui.FormNewProductActivity"
             android:exported="true" />
     </application>
 

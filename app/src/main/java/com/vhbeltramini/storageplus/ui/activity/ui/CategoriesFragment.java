@@ -17,46 +17,46 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.vhbeltramini.storageplus.R;
-import com.vhbeltramini.storageplus.model.Usuario;
-import com.vhbeltramini.storageplus.model.viewModel.UsuarioViewModel;
-import com.vhbeltramini.storageplus.ui.adapter.ListUsuarioAdapter;
-import com.vhbeltramini.storageplus.ui.adapter.holders.UsuarioHolderView;
+import com.vhbeltramini.storageplus.model.Categoria;
+import com.vhbeltramini.storageplus.model.viewModel.CategoriaViewModel;
+import com.vhbeltramini.storageplus.ui.adapter.ListCategoriaAdapter;
+import com.vhbeltramini.storageplus.ui.adapter.holders.CategoriaHolderView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import static com.vhbeltramini.storageplus.ui.activity.DataConstants.USER_KEY;
+import static com.vhbeltramini.storageplus.ui.activity.DataConstants.CATEGORY_KEY;
 
-public class UsersFragment extends Fragment implements UsuarioHolderView.OnUserListener {
+public class CategoriesFragment extends Fragment implements CategoriaHolderView.OnCategoriaListener {
 
 
     RecyclerView mRecyclerView;
-    ArrayList<Usuario> usuarios;
-    ListUsuarioAdapter mAdapter;
+    ArrayList<Categoria> categorias;
+    ListCategoriaAdapter mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_users, container, false);
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.activity_list_users_recycler_view);
+        View rootView = inflater.inflate(R.layout.fragment_categories, container, false);
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.activity_list_categories_recycler_view);
 
-        requireActivity().setTitle("Usuários");
+        requireActivity().setTitle("Categorias");
 
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        mAdapter = new ListUsuarioAdapter(new ListUsuarioAdapter.UsuarioDiff(), this);
+        mAdapter = new ListCategoriaAdapter(new ListCategoriaAdapter.CategoriaDiff(), this);
         mRecyclerView.setAdapter(mAdapter);
-        UsuarioViewModel viewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
+        CategoriaViewModel viewModel = new ViewModelProvider(this).get(CategoriaViewModel.class);
 
         viewModel.getAll().observe(requireActivity(), entities -> {
 
-            usuarios = (ArrayList<Usuario>) entities;
+            categorias = (ArrayList<Categoria>) entities;
             mAdapter.submitList(entities);
 
-            Log.e("Users: ", entities.toString());
+            Log.e("Categories: ", entities.toString());
         });
 
         openFormAddNew(rootView);
@@ -71,14 +71,14 @@ public class UsersFragment extends Fragment implements UsuarioHolderView.OnUserL
     }
 
     private void openFormAddNew(View rootView) {
-        FloatingActionButton addStorageButton = rootView.findViewById(R.id.activity_list_users_button_new_user);
-        addStorageButton.setOnClickListener(v -> startActivity(new Intent(getActivity(), FormNewUserActivity.class)));
+        FloatingActionButton addStorageButton = rootView.findViewById(R.id.activity_list_categories_button_new_category);
+        addStorageButton.setOnClickListener(v -> startActivity(new Intent(getActivity(), FormNewCategoryActivity.class)));
     }
 
     @Override
-    public void onUserClick(int position) {
-        Intent goToUserForm = new Intent(getActivity(), FormNewUserActivity.class);
-        goToUserForm.putExtra(USER_KEY, (Serializable) usuarios.get(position));
+    public void onCategoriaClick(int position) {
+        Intent goToUserForm = new Intent(getActivity(), FormNewCategoryActivity.class);
+        goToUserForm.putExtra(CATEGORY_KEY, (Serializable) categorias.get(position));
         startActivity(goToUserForm);
     }
 }

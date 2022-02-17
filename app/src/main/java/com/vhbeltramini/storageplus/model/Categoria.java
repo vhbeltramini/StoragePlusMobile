@@ -1,17 +1,24 @@
 package com.vhbeltramini.storageplus.model;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
+import static java.util.Objects.nonNull;
+
 @Entity(tableName = "tbcategoria")
-public class Categoria {
+public class Categoria implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    private int id;
+    private Long id;
 
     @ColumnInfo(name = "nome")
     private String nome;
@@ -32,11 +39,11 @@ public class Categoria {
     public Categoria() {
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -73,4 +80,10 @@ public class Categoria {
                 ", estoque=" + estoque +
                 '}';
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public boolean hasValidId() {
+        return nonNull(id) && id > 0;
+    }
+
 }

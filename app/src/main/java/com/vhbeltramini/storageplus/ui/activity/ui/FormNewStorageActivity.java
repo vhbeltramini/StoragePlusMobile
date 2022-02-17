@@ -3,7 +3,6 @@ package com.vhbeltramini.storageplus.ui.activity.ui;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -18,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.vhbeltramini.storageplus.R;
-import com.vhbeltramini.storageplus.model.Administrador;
 import com.vhbeltramini.storageplus.model.Estoque;
 import com.vhbeltramini.storageplus.model.Localizacao;
 import com.vhbeltramini.storageplus.model.Usuario;
@@ -27,7 +25,6 @@ import com.vhbeltramini.storageplus.model.viewModel.LocalizacaoViewModel;
 import com.vhbeltramini.storageplus.model.viewModel.UsuarioViewModel;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import static com.vhbeltramini.storageplus.ui.activity.DataConstants.STORAGE_KEY;
 
@@ -38,15 +35,14 @@ public class FormNewStorageActivity extends AppCompatActivity {
     private TextView formTitle;
     private EstoqueViewModel estoqueViewModel;
     private EditText nameForm, descriptionForm;
-    private Spinner locationsSpinner, administratorSpinner;
+    private Spinner locationsSpinner, userAdminSpinner;
     private Estoque storage;
-    private Button deleteButton;
     private LocalizacaoViewModel mLocalizacaoViewModel;
     private UsuarioViewModel mUsuarioViewModel;
     private final ArrayList localizacao = new ArrayList<>();
     private final ArrayList localizacaoId = new ArrayList<>();
-    private final ArrayList administrator = new ArrayList<>();
-    private final ArrayList administratorId = new ArrayList<>();
+    private final ArrayList user = new ArrayList<>();
+    private final ArrayList userId = new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -54,7 +50,6 @@ public class FormNewStorageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_storage);
         formTitle = findViewById(R.id.activity_form_storage_title);
-        deleteButton = findViewById(R.id.activity_form_storage_delete_button);
         estoqueViewModel = new ViewModelProvider(this).get(EstoqueViewModel.class);
         startForm();
 
@@ -66,15 +61,15 @@ public class FormNewStorageActivity extends AppCompatActivity {
     }
 
     private void handleOwnerSpinner() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, administrator);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, user);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        administratorSpinner.setAdapter(adapter);
+        userAdminSpinner.setAdapter(adapter);
 
         mUsuarioViewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
         mUsuarioViewModel.getAll().observe(this, users -> {
             for (Usuario user : users) {
-                administrator.add(user.getNome());
-                administratorId.add(user.getId());
+                this.user.add(user.getNome());
+                userId.add(user.getId());
             }
             adapter.notifyDataSetChanged();
         });
@@ -103,6 +98,7 @@ public class FormNewStorageActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         handleSave();
@@ -113,16 +109,14 @@ public class FormNewStorageActivity extends AppCompatActivity {
         nameForm = findViewById(R.id.activity_form_storage_name);
         descriptionForm = findViewById(R.id.activity_form_storage_description);
         locationsSpinner = findViewById(R.id.activity_form_storage_spinner_locations);
-        administratorSpinner = findViewById(R.id.activity_form_storage_spinner_administrator);
+        userAdminSpinner = findViewById(R.id.activity_form_storage_spinner_administrator);
     }
 
     private Estoque fillStorage() {
-        Long idUser = Long.valueOf((Long) administratorId.get(administrator.indexOf(administratorSpinner.getSelectedItem())));
-        Usuario usuario = mUsuarioViewModel.getByid(idUser);
-        Administrador administrador = new Administrador(usuario.getNome(), usuario.getSenha(), usuario.getEmail());
-        storage.setAdministrador(administrador);
+        Long idUser = (Long) userId.get(user.indexOf(userAdminSpinner.getSelectedItem()));
+        storage.setUsuario(mUsuarioViewModel.getByid(idUser));
 
-        Long idLoc = Long.valueOf((Long) localizacaoId.get(localizacao.indexOf(locationsSpinner.getSelectedItem())));
+        Long idLoc = (Long) localizacaoId.get(localizacao.indexOf(locationsSpinner.getSelectedItem()));
         Localizacao localizacaoStorage = mLocalizacaoViewModel.getByid(idLoc);
         storage.setLocalizacao(localizacaoStorage);
 
@@ -132,9 +126,9 @@ public class FormNewStorageActivity extends AppCompatActivity {
         return storage;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void handleSave() {
         fillStorage();
-        System.out.println(storage.toString());
 
         if (storage.hasValidId()) {
             estoqueViewModel.edit(storage);
@@ -144,12 +138,10 @@ public class FormNewStorageActivity extends AppCompatActivity {
         finish();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void handleButtons() {
         Button saveButton = findViewById(R.id.activity_form_storage_save_button);
         saveButton.setOnClickListener(v -> {
-            handleSave();
-        });
-        deleteButton.setOnClickListener(v -> {
             handleSave();
         });
     }

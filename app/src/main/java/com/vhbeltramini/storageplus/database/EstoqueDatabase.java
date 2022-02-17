@@ -15,7 +15,7 @@ import com.vhbeltramini.storageplus.model.Estoque;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Estoque.class}, version = 1)
+@Database(entities = {Estoque.class}, version = 2)
 public abstract class EstoqueDatabase extends RoomDatabase{
 
     public abstract EstoqueDao estoqueDao();
@@ -31,7 +31,6 @@ public abstract class EstoqueDatabase extends RoomDatabase{
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), EstoqueDatabase.class, DB_NAME)
                     .addCallback(sRoomDatabaseCallback)
                     .allowMainThreadQueries()
-            .fallbackToDestructiveMigration()
                     .fallbackToDestructiveMigration()
                     .build();
         }

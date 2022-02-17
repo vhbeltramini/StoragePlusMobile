@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,31 +18,30 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.vhbeltramini.storageplus.R;
-import com.vhbeltramini.storageplus.model.Localizacao;
-import com.vhbeltramini.storageplus.model.viewModel.LocalizacaoViewModel;
+import com.vhbeltramini.storageplus.model.Categoria;
+import com.vhbeltramini.storageplus.model.viewModel.CategoriaViewModel;
 
-import static com.vhbeltramini.storageplus.ui.activity.DataConstants.LOCATION_KEY;
+import static com.vhbeltramini.storageplus.ui.activity.DataConstants.CATEGORY_KEY;
 
-public class FormNewLocationActivity extends AppCompatActivity {
+public class FormNewCategoryActivity extends AppCompatActivity {
 
-    public static final String EDIT_LOCATION_TITLE = "Editar Localização";
-    public static final String NEW_LOCATION_TITLE = "Nova Localização";
-    private LocalizacaoViewModel localizacaoViewModel;
+    public static final String EDIT_CATEGORY_TITLE = "Editar Categoria";
+    public static final String NEW_CATEGORY_TITLE = "Nova Categoria";
+    private CategoriaViewModel viewModel;
     private Button deleteButton;
     private TextView formTitle;
     private EditText nameForm;
     private EditText descriptionForm;
-    private Localizacao localizacao;
+    private Categoria categoria;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Nova Localizacão");
-        setContentView(R.layout.activity_form_location);
-        localizacaoViewModel = new ViewModelProvider(this).get(LocalizacaoViewModel.class);
-        formTitle = findViewById(R.id.activity_form_location_title);
-        deleteButton = findViewById(R.id.activity_form_location_delete_button);
+        setContentView(R.layout.activity_form_category);
+        viewModel = new ViewModelProvider(this).get(CategoriaViewModel.class);
+        formTitle = findViewById(R.id.activity_form_category_title);
+        deleteButton = findViewById(R.id.activity_form_category_delete_button);
 
         startForm();
         handleFormData();
@@ -63,20 +63,20 @@ public class FormNewLocationActivity extends AppCompatActivity {
 
 
     private void startForm() {
-        nameForm = findViewById(R.id.activity_form_location_name);
-        descriptionForm = findViewById(R.id.activity_form_location_description);
+        nameForm = findViewById(R.id.activity_form_category_name);
+        descriptionForm = findViewById(R.id.activity_form_category_description);
     }
 
-    private Localizacao fillData() {
-        localizacao.setNome(nameForm.getText().toString());
-        localizacao.setDescricao(descriptionForm.getText().toString());
+    private Categoria fillData() {
+        categoria.setNome(nameForm.getText().toString());
+        categoria.setDescricao(descriptionForm.getText().toString());
 
-        return localizacao;
+        return categoria;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void handleButtons() {
-        Button saveButton = findViewById(R.id.activity_form_location_save_button);
+        Button saveButton = findViewById(R.id.activity_form_category_save_button);
         saveButton.setOnClickListener(v -> {
             handleSave();
         });
@@ -88,23 +88,23 @@ public class FormNewLocationActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void handleSave() {
         fillData();
-        if (localizacao.hasValidId()) {
-            localizacaoViewModel.edit(localizacao);
+        if (categoria.hasValidId()) {
+            viewModel.edit(categoria);
         } else {
-            localizacaoViewModel.insert(localizacao);
+            viewModel.insert(categoria);
         }
         finish();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void handleDelete() {
-        if (localizacao.hasValidId()) {
+        if (categoria.hasValidId()) {
             new AlertDialog
                     .Builder(this)
-                    .setTitle("Removendo Localização")
-                    .setMessage("Tem certeza que deseja deletar essa localização?")
+                    .setTitle("Removendo Categoria")
+                    .setMessage("Tem certeza que deseja deletar essa categoria?")
                     .setPositiveButton("Sim", (dialogInterface, i) -> {
-                        localizacaoViewModel.delete(fillData());
+                        viewModel.delete(fillData());
                         finish();
                     })
                     .setNegativeButton("Não", null)
@@ -114,15 +114,15 @@ public class FormNewLocationActivity extends AppCompatActivity {
 
     private void handleFormData() {
         Intent data = getIntent();
-        if (data.hasExtra(LOCATION_KEY)) {
-            localizacao = (Localizacao) data.getSerializableExtra(LOCATION_KEY);
-            nameForm.setText(localizacao.getNome());
-            descriptionForm.setText(localizacao.getDescricao());
-            formTitle.setText(EDIT_LOCATION_TITLE);
+        if (data.hasExtra(CATEGORY_KEY)) {
+            categoria = (Categoria) data.getSerializableExtra(CATEGORY_KEY);
+            nameForm.setText(categoria.getNome());
+            descriptionForm.setText(categoria.getDescricao());
             deleteButton.setVisibility(View.VISIBLE);
+            formTitle.setText(EDIT_CATEGORY_TITLE);
         } else {
-            formTitle.setText(NEW_LOCATION_TITLE);
-            localizacao = new Localizacao();
+            formTitle.setText(NEW_CATEGORY_TITLE);
+            categoria = new Categoria();
             deleteButton.setVisibility(View.INVISIBLE);
         }
     }
